@@ -56,3 +56,43 @@ NAV BAR
     height: 40px;
     width: 40px;
 }
+
+.navbar .links {
+    display: flex;
+    width: 100%;
+    max-width: 430px;
+}
+
+.navbar .link {
+    position: relative;
+}
+
+.navbar .link:after {
+    background-color: #0a1f44;
+    transition: all .25s cubic-bezier(.694,.048,.335,1);
+    content: "";
+    position: absolute;
+    bottom: -3px;
+    right: 0;
+    left: auto;
+    width: 0;
+    height: 3px;
+    z-index: 2
+}
+
+.navbar .link:hover:after {
+    width: 100%;
+    left: 0
+}
+
+.navbar .router-link-exact-active {
+    color: #6030b1!important
+}
+.navbar .router-link-exact-active:after {
+    background-color: #6030b1!important
+}
+
+.navbar a {
+    color: #0a1f44!important;
+    text-decoration: none
+}

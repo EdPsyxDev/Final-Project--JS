@@ -51,3 +51,8 @@ NAV BAR
 .justify-between {
     justify-content: space-between !important;
 }
+
+.navbar .logo {
+    height: 40px;
+    width: 40px;
+}

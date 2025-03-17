@@ -13,3 +13,25 @@
     flex-direction: column;
 }
 
+.flex-col {
+    flex-direction: column !important;
+}
+
+.flex {
+    display: flex !important;
+}
+
+/*
+
+NAV BAR
+
+*/
+
+.navbar {
+    height: 165px;
+    display: flex;
+    align-items: center;
+    padding: 0 50px;
+    font-size: 18px;
+    font-weight: 600;
+}

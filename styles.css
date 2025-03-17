@@ -1,17 +1,55 @@
+*, :after, :before {
+    box-sizing: inherit;
+}
+
 * {
     font-family: Open Sans, sans-serif;
     margin: 0;
     box-sizing: border-box;
 }
-*, :after, :before {
-    box-sizing: inherit;
-}
 
+html.md-theme-default {
+    background-color: #fafafa;
+    background-color: var(--md-theme-default-background-variant, #fafafa);
+    color: rgba(0, 0, 0, .87);
+    color: var(--md-theme-default-text-primary-on-background-variant, rgba(0, 0, 0, .87));
+}
 #app {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
+
+body {
+    min-height: 100%;
+    margin: 0;
+    position: relative;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    font-family: Roboto, Noto Sans, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+body, html {
+    max-width: 100vw;
+    overflow-x: hidden;
+    background-color: #fff;
+}
+
+.md-body-1, body {
+    font-weight: 400;
+    line-height: 20px;
+}
+
+.md-body-1, .md-body-2, body {
+    font-size: 14px;
+    letter-spacing: .01em;
+}
+
+
 
 .flex-col {
     flex-direction: column !important;
@@ -44,13 +82,15 @@ NAV BAR
     flex-wrap: wrap;
 }
 
+.justify-between {
+    justify-content: space-between !important;
+}
+
 .align-center {
     align-items: center !important;
 }
 
-.justify-between {
-    justify-content: space-between !important;
-}
+
 
 .navbar .logo {
     height: 40px;
@@ -95,4 +135,63 @@ NAV BAR
 .navbar a {
     color: #0a1f44!important;
     text-decoration: none
+}
+
+a.btn-contact {
+    display: flex;
+    cursor: pointer;
+    max-height: 48px;
+    min-height: 48px;
+    padding: 12px 40px;
+    align-items: center;
+    border: 2px #5d3eff;
+    border-radius: 50px;
+    background-color: #6030b1;
+    color: #fff !important;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: all .35s ease;
+}
+
+a:hover {
+    text-decoration: none !important;
+}
+
+a:not(.md-button):hover {
+    text-decoration: underline;
+}
+
+.md-theme-default a:not(.md-button) {
+    color: #448aff;
+    color: var(--md-theme-default-primary-on-background, #448aff);
+}
+
+a.btn-contact:hover {
+    background-color: #5d3eff;
+    color: #fff !important;
+}
+
+/* 
+
+Landing Page
+
+*/
+
+
+
+
+
+@media screen and (max-width: 750px) {
+    .links {
+        display:none!important
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .navbar {
+        padding:0 20px;
+        height: 85px
+    }
 }

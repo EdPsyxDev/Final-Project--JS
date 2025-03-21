@@ -246,26 +246,34 @@ button {
 }
 
 button.not-loading {
-    background-color: rgb(96, 48, 177);
-    box-shadow: rgba(134, 93, 204, 0.3) 7px 7px 14px;
-    cursor: pointer;
-    border-width: 1px;
-    border-style: solid;
-    border-color: rgb(96, 48, 177);
-    border-image: initial;
+    border: 1px solid #6030b1;
+    background-color: #6030b1;
+    box-shadow: 7px 7px 14px rgba(134,93,204,.3);
+    cursor: pointer
+}
+button.not-loading:active {
+transform: scale(.95)
 }
 
-.magn-glass {
-    display: inline-block;
-    font-size: inherit;
-    height: 1em;
-    overflow: visible;
-    vertical-align: -0.125em;
+button.not-loading:hover {
+    background-color: #ff328f;
+    border: 1px solid #ff328f
 }
-.magn-glass {
-    width: 1em;
+
+button.loading {
+    background-color: #0a1f44;
+    cursor: no-drop
 }
-.
+
+button.loading:hover {
+    background-color: #000
+}
+
+button.loading:active {
+    transform: scale(1)
+}
+
+
 
 @media screen and (max-width: 750px) {
     .links {

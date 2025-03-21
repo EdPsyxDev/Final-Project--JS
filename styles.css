@@ -201,7 +201,71 @@ h1 {
     margin-bottom: 30px;
 }
 
+h2 {
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1.5;
+    color: #0a1f44;
+    text-align: center;
+    margin-bottom: 30px;
+}
 
+input {
+    background-color: #fff;
+    border-radius: 20px;
+    border: 1px solid #0a1f44;
+    color: #0a1f44;
+    display: inline-block;
+    height: 70px;
+    line-height: 40px;
+    outline: none;
+    padding: 0 15px;
+    transition: border-color cubic-bezier(0.645, 0.045, 0.355, 1);
+    width: 100%;
+    font-size: 24px;
+    padding-left: 25px;
+}
+input:focus {
+    box-shadow: 0 0 0 1px #6030b1
+}
+
+.input-wrapper {
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+button {
+    width: 200px;
+    margin-left: 20px;
+    font-size: 40px;
+    color: rgb(255, 255, 255);
+    border-radius: 20px;
+    transition: 0.25s;
+}
+
+button.not-loading {
+    background-color: rgb(96, 48, 177);
+    box-shadow: rgba(134, 93, 204, 0.3) 7px 7px 14px;
+    cursor: pointer;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(96, 48, 177);
+    border-image: initial;
+}
+
+.magn-glass {
+    display: inline-block;
+    font-size: inherit;
+    height: 1em;
+    overflow: visible;
+    vertical-align: -0.125em;
+}
+.magn-glass {
+    width: 1em;
+}
+.
 
 @media screen and (max-width: 750px) {
     .links {

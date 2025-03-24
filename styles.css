@@ -57,7 +57,9 @@ body, html {
     flex-direction: column !important;
 }
 
-
+svg:not(:root).svg-inline--fa {
+    overflow: visible;
+}
 
 /*
 
@@ -192,13 +194,13 @@ Landing Page
 }
 
 h1 {
-    font-size: 57px;
+    font-size: 58px;
     max-width: 730px;
     font-weight: 700;
     line-height: 1.25;
     color: #6030b1;
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 50px;
 }
 
 h2 {
@@ -240,9 +242,9 @@ button {
     width: 200px;
     margin-left: 20px;
     font-size: 40px;
-    color: rgb(255, 255, 255);
+    color: #fff;
     border-radius: 20px;
-    transition: 0.25s;
+    transition: all .25s ease;
 }
 
 button.not-loading {
@@ -273,7 +275,17 @@ button.loading:active {
     transform: scale(1)
 }
 
+.svg-inline--fa.fa-w-16 {
+    width: 1em;
+}
 
+.svg-inline--fa {
+    display: inline-block;
+    font-size: inherit;
+    height: 1em;
+    overflow: visible;
+    vertical-align: -0.125em;
+}
 
 @media screen and (max-width: 750px) {
     .links {

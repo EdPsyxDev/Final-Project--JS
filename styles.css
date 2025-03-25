@@ -389,36 +389,7 @@ PHONE NAV
 
 */
 
-#phone-nav {
-    display: none;
-    position: relative;
-}
 
-.bento-menu {
-    width: 27px;
-    height: 27px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    box-sizing: content-box;
-    padding: 5px;
-    cursor: pointer;
-}
-.bento-menu>div {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background-color: #c7000c;
-}
-
-.close
-
-.__web-inspector-hide-shortcut__,
-.__web-inspector-hide-shortcut__ *,
-.__web-inspector-hidebefore-shortcut__::before,
-.__web-inspector-hideafter-shortcut__::after {
-    visibility: hidden !important;
-}
 
 @media screen and (max-height: 600px) {
     .navbar {
@@ -470,5 +441,4 @@ PHONE NAV
     h2 {
         margin-bottom: 40px
     }
-
 }

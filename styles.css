@@ -101,8 +101,6 @@ NAV BAR
     text-decoration: none;
 }
 
-
-
 .content-wrapper {
     margin: 0 auto;
     width: 100%;
@@ -130,8 +128,6 @@ NAV BAR
     max-width: 430px;
 }
 
-
-
 .navbar .rle-active {
     color: #c7000c !important; 
 }
@@ -140,11 +136,6 @@ NAV BAR
     background-color: #c7000c !important;
 }
 
-.link {
-    color: #c7000c;
-    font-size: 20px;
-    padding: 16px 0;
-}
 
 .navbar .link {
     position: relative;
@@ -166,12 +157,7 @@ NAV BAR
     left: 0;
 }
 
-a.link {
-    color: #c7000c !important;
-    text-align: center;
-    font-size: 30px;
-    margin-bottom: 60px;
-}
+
 
 a.btn-contact {
     display: flex;
@@ -460,7 +446,18 @@ PHONE NAV
     opacity: 1;
 }
 
+a.linkM {
+    color: #c7000c !important;
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 60px;
+}
 
+.linkM {
+    color: #c7000c;
+    font-size: 20px;
+    padding: 16px 0;
+}
 
 
 @media screen and (max-width: 350px) {

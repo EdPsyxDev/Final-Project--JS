@@ -1,3 +1,10 @@
+/* :root {
+    --md-theme-default-primary: #c7000c;
+    --md-theme-default-accent: #f7a050;
+    --md-theme-default-theme: light
+} */
+
+
 *, :after, :before {
     box-sizing: inherit;
 }
@@ -8,12 +15,12 @@
     box-sizing: border-box;
 }
 
-html.md-theme-default {
+/* html.md-theme-default {
     background-color: #fafafa;
     background-color: var(--md-theme-default-background-variant, #fafafa);
     color: rgba(0, 0, 0, .87);
     color: var(--md-theme-default-text-primary-on-background-variant, rgba(0, 0, 0, .87));
-}
+} */
 #app {
     min-height: 100vh;
     display: flex;
@@ -37,6 +44,10 @@ body, html {
     max-width: 100vw;
     overflow-x: hidden;
     background-color: #fff;
+}
+
+span {
+    font-size: 15px;
 }
 
 a:not(.md-button) {
@@ -176,15 +187,12 @@ a.btn-contact {
     text-transform: uppercase;
     transition: all .35s ease;
 }
-
-
-
 a.btn-contact:hover {
     background-color: #f7a050;
     color: #fff !important;
 }
 
-
+/* 
 .md-theme-default a:not(.md-button) {
     color: #448aff;
     color: var(--md-theme-default-primary-on-background, #448aff);
@@ -195,7 +203,7 @@ a.btn-contact:hover {
     color: #c7000c;
     color: var(--md-theme-default-primary-on-background, #c7000c);
 }
-
+ */
 
 
 
@@ -273,7 +281,7 @@ input {
     padding-left: 25px;
 }
 input:focus {
-    box-shadow: 0 0 0 1px #c7000c
+    box-shadow: 0 0 0 1px #c7000c; 
 }
 
 .input-wrapper {
@@ -299,7 +307,7 @@ button.not-loading {
     border: 1px solid #c7000c;
     background-color: #c7000c;
     box-shadow: 7px 7px 14px rgba(134,93,204,.3);
-    cursor: pointer
+    cursor: pointer;
 }
 button.not-loading:active {
 transform: scale(.95)
@@ -307,20 +315,20 @@ transform: scale(.95)
 
 button.not-loading:hover {
     background-color: #f7a050;
-    border: 1px solid #f7a050
+    border: 1px solid #f7a050;
 }
 
 button.loading {
     background-color: #0a1f44;
-    cursor: no-drop
+    cursor: no-drop;
 }
 
 button.loading:hover {
-    background-color: #000
+    background-color: #000;
 }
 
 button.loading:active {
-    transform: scale(1)
+    transform: scale(1);
 }
 
 .svg-inline--fa.fa-w-16 {
@@ -335,7 +343,12 @@ button.loading:active {
     vertical-align: -0.125em;
 }
 
-.building {
+.fa-spinner {
+    -webkit-animation: rotate 1s linear infinite;
+    animation: rotate 1s linear infinite;
+}
+
+.audience {
     width: 100%;
     bottom: 0px;
     height: auto;
@@ -382,10 +395,17 @@ PHONE NAV
 }
 
 .show-anim-in {
-    -webkit-animation: rotateToOne;
+    -webkit-animation: rotateToOne .3s;
     animation: rotateToOne .3s;
     opacity: 1;
     border-radius: 0;
+}
+
+.hide-anim-out {
+    -webkit-animation: rotateToZero .3s;
+    animation: rotateToZero .3s;
+    opacity: 1;
+    border-radius: 50%;
 }
 
 .close-btn {
@@ -399,8 +419,8 @@ PHONE NAV
     z-index: 2000;
     cursor: pointer;
 }
-.close-btn.show::after,
-.close-btn.show::before {
+.close-btn::after,
+.close-btn::before {
     content: "";
     position: absolute;
     height: 2px;
@@ -453,16 +473,83 @@ a.linkM {
     margin-bottom: 60px;
 }
 
+a.linkM:hover {
+    text-decoration: none;
+}
+
+
 .linkM {
     color: #c7000c;
     font-size: 20px;
     padding: 16px 0;
 }
 
+@-webkit-keyframes rotateToZero {
+    0% {
+        opacity: 1;
+        transform: rotate(0deg) scale(1);
+    }
+
+    20% {
+        opacity: .8;
+        transform: rotate(0deg) scale(.8);
+    }
+
+    40% {
+        opacity: .8;
+        transform: rotate(1turn) scale(.6);
+    }
+
+    80% {
+        opacity: .2;
+        transform: rotate(2turn) scale(.2);
+    }
+
+    to {
+        opacity: 0;
+        transform: rotate(900deg) scale(0);
+    }
+}
+
+@keyframes rotateToZero {
+    0% {
+        opacity: 1;
+        transform: rotate(0deg) scale(1);
+    }
+
+    20% {
+        opacity: .8;
+        transform: rotate(180deg) scale(.8);
+    }
+
+    40% {
+        opacity: .6;
+        transform: rotate(1turn) scale(.6);
+    }
+
+    60% {
+        opacity: .4;
+        transform: rotate(540deg) scale(.4);
+    }
+
+    80% {
+        opacity: .2;
+        transform: rotate(2turn) scale(.2);
+    }
+
+    to {
+        opacity: 0;
+        transform: rotate(900deg) scale(0);
+    }
+}
+
+
+
+
 
 @media screen and (max-width: 350px) {
     input {
-        font-size: 14px !important
+        font-size: 14px !important;
     }
 }
 
@@ -474,7 +561,7 @@ a.linkM {
 }
 
 @media screen and (max-height: 550px) {
-    .building {
+    .audience {
         display:none;
         position: absolute;
         bottom: 0%; 
@@ -546,7 +633,7 @@ a.linkM {
     }
 
     .links {
-        display: none !important
+        display: none !important;
     }
 
     input {

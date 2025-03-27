@@ -302,6 +302,10 @@ button {
     border-radius: 20px;
     transition: all .25s ease;
 }
+button svg.fa-search,
+button svg.fa-spinner {
+    display: none;
+}
 
 button.not-loading {
     border: 1px solid #c7000c;
@@ -312,23 +316,28 @@ button.not-loading {
 button.not-loading:active {
 transform: scale(.95)
 }
-
 button.not-loading:hover {
     background-color: #f7a050;
     border: 1px solid #f7a050;
+}
+
+button.not-loading svg.fa-search {
+    display: inline-block;
 }
 
 button.loading {
     background-color: #0a1f44;
     cursor: no-drop;
 }
-
 button.loading:hover {
     background-color: #000;
 }
-
 button.loading:active {
     transform: scale(1);
+}
+
+button.loading svg.fa-spinner {
+    display: inline-block;
 }
 
 .svg-inline--fa.fa-w-16 {
@@ -343,10 +352,19 @@ button.loading:active {
     vertical-align: -0.125em;
 }
 
-.fa-spinner {
-    -webkit-animation: rotate 1s linear infinite;
+button.loading svg.fa-spinner {
     animation: rotate 1s linear infinite;
 }
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 
 .audience {
     width: 100%;

@@ -108,7 +108,7 @@ NAV BAR
 }
 
 .navbar a {
-    color: #0a1f44 !important;
+    color: #000 !important;
     text-decoration: none;
 }
 
@@ -152,7 +152,7 @@ NAV BAR
     position: relative;
 }
 .navbar .link::after {
-    background-color: #0a1f44;
+    background-color: #000;
     transition: all .25s cubic-bezier(.694,.048,.335,1);
     content: "";
     position: absolute;
@@ -254,7 +254,7 @@ h2 {
     font-size: 30px;
     font-weight: 700;
     line-height: 1.5;
-    color: #0a1f44;
+    color: #000;
     text-align: center;
     margin-bottom: 30px;
 }
@@ -268,8 +268,8 @@ h2 {
 input {
     background-color: #fff;
     border-radius: 20px;
-    border: 1px solid #0a1f44;
-    color: #0a1f44;
+    border: 1px solid #000;
+    color: #000;
     display: inline-block;
     height: 70px;
     line-height: 40px;
@@ -326,7 +326,7 @@ button.not-loading svg.fa-search {
 }
 
 button.loading {
-    background-color: #0a1f44;
+    background-color: #000;
     cursor: no-drop;
 }
 button.loading:hover {

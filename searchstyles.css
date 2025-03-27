@@ -1,0 +1,117 @@
+/* 
+
+NAV
+
+*/
+
+.content-wrapper {
+    align-items: center;
+    flex-direction: column;
+    margin-top: -20px;
+    z-index: 2;
+}
+
+.navbar {
+    height: 326px;
+    padding: 40px;
+    background-color: grey;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.link {
+    -webkit-filter: brightness(0) invert(1);
+    filter: brightness(0) invert(1);
+}
+
+.logo {
+    transition: all .15 ease;
+}
+.logo:hover {
+    -webkit-filter: none;
+    filter: none;
+}
+
+.links a.btn-contact {
+    background-color: #fff;
+    color: #c7000c!important
+}
+.links a.btn-contact:hover {
+    background-color: #f7a050;
+    color: #fff!important
+}
+
+.input-wrap {
+    width: 100%;
+    max-width: 600px;
+    position: relative;
+    border-radius: 50px;
+    overflow: hidden;
+}
+
+.input {
+    color: rgba(0, 0, 0, .87);
+    width: 100%;
+    max-width: 800px;
+    height: 60px;
+    font-size: 20px;
+}
+.input:focus {
+    outline: none !important;
+}
+
+.search-wrapper {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 10000;
+    padding: 0 20px 0 8px;
+    color: #c7000c;
+    font-size: 32px;
+    transition: all .2s ease;
+}
+
+.search-wrapper:hover {
+    color: #f7a050;
+}
+
+.overlay {
+    background-image: url(/Resourses/livemusic.jpg);
+    background-repeat: no-repeat;
+    background-position: 50%;
+    background-size: cover;
+    opacity: 30%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
+}
+
+.overlay::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(254, 201, 198, 0.372);
+    pointer-events: none;
+}
+
+h1 {
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-align: center;
+    letter-spacing: .1em;
+    font-size: 45px;
+    max-width: 1000px;
+    margin-bottom: 40px;
+    color: #c7000c;
+}
+

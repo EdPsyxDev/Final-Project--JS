@@ -46,18 +46,19 @@ NAV
     width: 100%;
     max-width: 600px;
     position: relative;
-    border-radius: 50px;
+    border-radius: 30px;
     overflow: hidden;
 }
 
-.input {
+input {
     color: rgba(0, 0, 0, .87);
     width: 100%;
     max-width: 800px;
     height: 60px;
     font-size: 20px;
+    border: 2px;
 }
-.input:focus {
+input:focus {
     outline: none !important;
 }
 
@@ -114,4 +115,50 @@ h1 {
     margin-bottom: 40px;
     color: #c7000c;
 }
+.h1 {
+    padding: 20px 0;
+    font-size: 28px;
+    line-height: 1.25;
+}
 
+.h2 {
+    margin-bottom: 12px;
+    font-size: 20px;
+    color: #c7000c;
+}
+
+/*  */
+
+@media screen and (max-width: 375px) {
+    input {
+        font-size: 14px;
+    }
+
+    .search-wrapper {
+        font-size: 20px;
+        padding: 0 10px 0 8px;
+    }
+}
+
+
+
+@media screen and (max-width: 500px) {
+    h1 {
+        font-size: 31px;
+    }
+
+    input {
+      font-size: 16px;  
+    }
+}
+
+
+@media screen and (max-width: 750px) {
+    .links {
+        display: none !important;
+    }
+
+    #phone-nav {
+        display: block;
+    }
+}

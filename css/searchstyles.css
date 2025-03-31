@@ -4,12 +4,13 @@ NAV
 
 */
 
-.content-wrapper {
+.wrapper {
     align-items: center;
     flex-direction: column;
     margin-top: -20px;
-    z-index: 2;
+    z-index: 2
 }
+
 
 .navbar {
     height: 326px;
@@ -90,7 +91,7 @@ input {
     font-size: 20px;
 }
 input:focus {
-    box-shadow: 0 0 0 1px #c7000c; 
+    box-shadow: 0 0 0 1px #c7000c;
 }
 
 .overlay {
@@ -129,17 +130,7 @@ h1 {
     margin-bottom: 40px;
     color: #fff;
 }
-.h1 {
-    padding: 20px 0;
-    font-size: 28px;
-    line-height: 1.25;
-}
 
-.h2 {
-    margin-bottom: 12px;
-    font-size: 20px;
-    color: #c7000c;
-}
 
 .black-txt {
     color: #000;
@@ -213,7 +204,39 @@ SEARCH
     margin: 0 auto;
 }
 
+.search-info {
+    padding: 20px 0;
+    font-size: 28px;
+    line-height: 1.25;
+}
+
+#filter {
+    padding: 0 20px;
+}
+
 /*  */
+
+.md-progress-bar {
+    height: 5px;
+    overflow: hidden;
+    position: relative;
+    transform: translateZ(0) scaleY(1);
+    transform-origin: center center;
+    transition: opacity .3s cubic-bezier(.4, 0, .2, 1), transform .4s cubic-bezier(.4,0,.2,1);
+    will-change: opacity, transform;
+}
+
+.md-progress-bar.md-theme-default.md-indeterminate, 
+.md-progress-bar.md-theme-default.md-query {
+    background-color: rgba(68, 138, 255, .38);
+    background-color: var(--md-theme-default-primary-on-, rgba(68, 138, 255, .38));
+}
+
+.md-progress-bar.md-theme-default.md-indeterminate, 
+.md-progress-bar.md-theme-default.md-query {
+    background-color: #c7000d6b;
+    background-color: var(--md-theme-default-primary-on-, #c7000d6b);
+}
 
 #artists {
     padding: 40px;
@@ -258,7 +281,7 @@ SEARCH
 .empty-state button {
     width: 200px;
     height: 40px;
-    background-color: #6030b1;
+    background-color: #c7000c;
     border: none;
     color: #fff;
     font-size: 18px;

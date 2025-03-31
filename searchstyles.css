@@ -38,7 +38,7 @@ NAV
     color: #c7000c!important
 }
 .links a.btn-contact:hover {
-    background-color: #f7a050;
+    background-color: #ff6655;
     color: #fff!important
 }
 
@@ -46,20 +46,18 @@ NAV
     width: 100%;
     max-width: 600px;
     position: relative;
-    border-radius: 30px;
-    overflow: hidden;
 }
 
 input {
+    border-radius: 30px;
     color: rgba(0, 0, 0, .87);
     width: 100%;
     max-width: 800px;
     height: 60px;
     font-size: 20px;
-    border: 2px;
 }
 input:focus {
-    outline: none !important;
+    box-shadow: 0 0 0 1px #c7000c; 
 }
 
 .search-wrapper {
@@ -76,7 +74,7 @@ input:focus {
 }
 
 .search-wrapper:hover {
-    color: #f7a050;
+    color: #ff6655;
 }
 
 .overlay {
@@ -84,7 +82,7 @@ input:focus {
     background-repeat: no-repeat;
     background-position: 50%;
     background-size: cover;
-    opacity: 30%;
+    opacity: 20%;
     width: 100%;
     position: absolute;
     top: 0;
@@ -113,7 +111,7 @@ h1 {
     font-size: 45px;
     max-width: 1000px;
     margin-bottom: 40px;
-    color: #c7000c;
+    color: #fff;
 }
 .h1 {
     padding: 20px 0;

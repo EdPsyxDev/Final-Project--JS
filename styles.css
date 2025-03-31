@@ -1,6 +1,12 @@
+@import url(https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap);#app[data-v-5fdf2371] {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column
+}
+
 :root {
     --md-theme-default-primary: #c7000c;
-    --md-theme-default-accent: #f7a050;
+    --md-theme-default-accent: #ff6655;
     --md-theme-default-theme: light
 }
 
@@ -177,7 +183,7 @@ a.btn-contact {
     min-height: 48px;
     padding: 12px 40px;
     align-items: center;
-    border: 2px #f7a050;
+    border: 2px #ff6655;
     border-radius: 50px;
     background-color: #c7000c;
     color: #fff !important;
@@ -188,7 +194,7 @@ a.btn-contact {
     transition: all .35s ease;
 }
 a.btn-contact:hover {
-    background-color: #f7a050;
+    background-color: #ff6655;
     color: #fff !important;
 }
 
@@ -203,7 +209,7 @@ a.btn-contact:hover {
     color: #c7000c;
     color: var(--md-theme-default-primary-on-background, #c7000c);
 }
- */
+*/
 
 
 
@@ -317,8 +323,8 @@ button.not-loading:active {
 transform: scale(.95)
 }
 button.not-loading:hover {
-    background-color: #f7a050;
-    border: 1px solid #f7a050;
+    background-color: #ff6655;
+    border: 1px solid #ff6655;
 }
 
 button.not-loading svg.fa-search {

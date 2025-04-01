@@ -99,7 +99,7 @@ input:focus {
     background-repeat: no-repeat;
     background-position: 50%;
     background-size: cover;
-    opacity: 20%;
+    opacity: 15%;
     width: 100%;
     position: absolute;
     top: 0;
@@ -214,7 +214,7 @@ SEARCH
     padding: 0 20px;
 }
 
-/*  */
+/* ----------------- */
 
 .md-progress-bar {
     height: 5px;
@@ -226,17 +226,335 @@ SEARCH
     will-change: opacity, transform;
 }
 
-.md-progress-bar.md-theme-default.md-indeterminate, 
-.md-progress-bar.md-theme-default.md-query {
-    background-color: rgba(68, 138, 255, .38);
-    background-color: var(--md-theme-default-primary-on-, rgba(68, 138, 255, .38));
+.md-progress-bar.md-indeterminate .md-progress-bar-track,.md-progress-bar.md-query .md-progress-bar-track {
+    left: -150%;
+    animation: b 2s linear infinite;
 }
 
-.md-progress-bar.md-theme-default.md-indeterminate, 
-.md-progress-bar.md-theme-default.md-query {
-    background-color: #c7000d6b;
-    background-color: var(--md-theme-default-primary-on-, #c7000d6b);
+.md-progress-bar.md-indeterminate .md-progress-bar-track:after,.md-progress-bar.md-query .md-progress-bar-track:after {
+    animation: c 2s linear infinite;
 }
+
+.md-progress-bar.md-indeterminate .md-progress-bar-fill,.md-progress-bar.md-query .md-progress-bar-fill {
+    left: -55%;
+    animation: d 2s linear infinite;
+}
+
+.md-progress-bar.md-indeterminate .md-progress-bar-fill:after,.md-progress-bar.md-query .md-progress-bar-fill:after {
+    animation: e 2s linear infinite;
+}
+
+.md-progress-bar.md-buffer .md-progress-bar-buffer,.md-progress-bar.md-buffer .md-progress-bar-fill,
+.md-progress-bar.md-buffer .md-progress-bar-track,.md-progress-bar.md-determinate .md-progress-bar-buffer,
+.md-progress-bar.md-determinate .md-progress-bar-fill,.md-progress-bar.md-determinate .md-progress-bar-track {
+    transition: .25s cubic-bezier(.25,.8,.25,1);
+}
+
+.md-progress-bar.md-determinate .md-progress-bar-track {
+    display: none;
+}
+
+.md-progress-bar.md-buffer .md-progress-bar-buffer {
+    border-top: 4px dotted;
+    animation: f .25s linear infinite;
+}
+
+.md-progress-bar.md-query {
+    transform: rotate(180deg);
+}
+
+.md-progress-bar-enter,.md-progress-bar-leave-active {
+    opacity: .5;
+    transform: translateZ(0) scaleY(0);
+}
+
+.md-progress-bar-buffer,.md-progress-bar-fill,.md-progress-bar-track {
+    transform-origin: top left;
+}
+
+.md-progress-bar-buffer,.md-progress-bar-buffer:after,.md-progress-bar-fill,.md-progress-bar-fill:after,.md-progress-bar-track,.md-progress-bar-track:after {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    will-change: transform;
+}
+
+.md-progress-bar-buffer:after,.md-progress-bar-fill:after,.md-progress-bar-track:after {
+    display: inline-block;
+    left: 0;
+    content: " ";
+}
+
+
+
+.md-progress-bar.md-theme-default.md-indeterminate,.md-progress-bar.md-theme-default.md-query {
+    background-color: rgba(68, 138, 255, .38);
+    background-color: var(--md-theme-default-primary-on-,rgba(68,138,255,.38))
+}
+
+.md-progress-bar.md-theme-default.md-indeterminate .md-progress-bar-fill:after,.md-progress-bar.md-theme-default.md-indeterminate .md-progress-bar-track:after,.md-progress-bar.md-theme-default.md-query .md-progress-bar-fill:after,.md-progress-bar.md-theme-default.md-query .md-progress-bar-track:after {
+    background-color: #448aff;
+    background-color: var(--md-theme-default-primary,#448aff)
+}
+
+.md-progress-bar.md-theme-default.md-indeterminate.md-accent,.md-progress-bar.md-theme-default.md-query.md-accent {
+    background-color: rgba(255,82,82,.38);
+    background-color: var(--md-theme-default-accent-on-,rgba(255,82,82,.38))
+}
+
+.md-progress-bar.md-theme-default.md-indeterminate.md-accent .md-progress-bar-fill:after,.md-progress-bar.md-theme-default.md-indeterminate.md-accent .md-progress-bar-track:after,.md-progress-bar.md-theme-default.md-query.md-accent .md-progress-bar-fill:after,.md-progress-bar.md-theme-default.md-query.md-accent .md-progress-bar-track:after {
+    background-color: #ff5252;
+    background-color: var(--md-theme-default-accent,#ff5252)
+}
+
+.md-progress-bar.md-theme-default.md-determinate {
+    background-color: rgba(68,138,255,.38);
+    background-color: var(--md-theme-default-primary-on-,rgba(68,138,255,.38))
+}
+
+.md-progress-bar.md-theme-default.md-determinate .md-progress-bar-fill {
+    background-color: #448aff;
+    background-color: var(--md-theme-default-primary,#448aff)
+}
+
+.md-progress-bar.md-theme-default.md-determinate.md-accent {
+    background-color: rgba(255,82,82,.38);
+    background-color: var(--md-theme-default-accent-on-,rgba(255,82,82,.38))
+}
+
+.md-progress-bar.md-theme-default.md-determinate.md-accent .md-progress-bar-fill {
+    background-color: #ff5252;
+    background-color: var(--md-theme-default-accent,#ff5252)
+}
+
+.md-progress-bar.md-theme-default.md-buffer .md-progress-bar-fill {
+    background-color: #448aff;
+    background-color: var(--md-theme-default-primary,#448aff)
+}
+
+.md-progress-bar.md-theme-default.md-buffer .md-progress-bar-track {
+    background-color: rgba(68,138,255,.38);
+    background-color: var(--md-theme-default-primary-on-,rgba(68,138,255,.38))
+}
+
+.md-progress-bar.md-theme-default.md-buffer .md-progress-bar-buffer {
+    border-color: rgba(68,138,255,.38);
+    border-color: var(--md-theme-default-primary-on-,rgba(68,138,255,.38))
+}
+
+.md-progress-bar.md-theme-default.md-buffer.md-accent .md-progress-bar-fill {
+    background-color: #ff5252;
+    background-color: var(--md-theme-default-accent,#ff5252)
+}
+
+.md-progress-bar.md-theme-default.md-buffer.md-accent .md-progress-bar-track {
+    background-color: rgba(255,82,82,.38);
+    background-color: var(--md-theme-default-accent-on-,rgba(255,82,82,.38))
+}
+
+.md-progress-bar.md-theme-default.md-buffer.md-accent .md-progress-bar-buffer {
+    border-color: rgba(255,82,82,.38);
+    border-color: var(--md-theme-default-accent-on-,rgba(255,82,82,.38))
+}
+
+@keyframes b {
+    0% {
+        transform: translateX(0)
+    }
+
+    20% {
+        animation-timing-function: cubic-bezier(.5,0,.7,.5);
+        transform: translateX(0)
+    }
+
+    60% {
+        animation-timing-function: cubic-bezier(.3,.38,.55,.96);
+        transform: translateX(83.67%)
+    }
+
+    to {
+        transform: translateX(200.61%)
+    }
+}
+
+@keyframes c {
+    0% {
+        transform: scaleX(.08)
+    }
+
+    35% {
+        animation-timing-function: cubic-bezier(.33,.12,.79,1);
+        transform: scaleX(.08)
+    }
+
+    70% {
+        animation-timing-function: cubic-bezier(.06,.11,.6,1);
+        transform: scaleX(.66)
+    }
+
+    to {
+        transform: scaleX(.08)
+    }
+}
+
+@keyframes d {
+    0% {
+        animation-timing-function: cubic-bezier(.15,0,.52,.41);
+        transform: translateX(0)
+    }
+
+    25% {
+        animation-timing-function: cubic-bezier(.31,.28,.8,.73);
+        transform: translateX(37.65%)
+    }
+
+    50% {
+        animation-timing-function: cubic-bezier(.4,.63,.6,.9);
+        transform: translateX(84.39%)
+    }
+
+    to {
+        transform: translateX(160.28%)
+    }
+}
+
+@keyframes e {
+    0% {
+        animation-timing-function: cubic-bezier(.15,0,.52,.41);
+        transform: scaleX(.08)
+    }
+
+    20% {
+        animation-timing-function: cubic-bezier(.31,.28,.8,.73);
+        transform: scaleX(.46)
+    }
+
+    45% {
+        animation-timing-function: cubic-bezier(.4,.63,.6,.9);
+        transform: scaleX(.73)
+    }
+
+    to {
+        transform: scaleX(.08)
+    }
+}
+
+@keyframes f {
+    to {
+        transform: translate3D(-8px,0,0)
+    }
+}
+
+@keyframes g {
+    0% {
+        transform: rotate(0)
+    }
+
+    to {
+        transform: rotate(1turn)
+    }
+}
+
+@keyframes h {
+    0% {
+        opacity: 0;
+        transform: rotate(-90deg) translateZ(0)
+    }
+
+    20% {
+        opacity: 1
+    }
+
+    to {
+        transform: rotate(270deg) translateZ(0)
+    }
+}
+
+
+
+@keyframes i {
+    0% {
+        stroke-dashoffset: var(--md-progress-spinner-start-value);
+        transform: rotate(0)
+    }
+
+    12.5% {
+        stroke-dashoffset: var(--md-progress-spinner-end-value);
+        transform: rotate(0)
+    }
+
+    12.51% {
+        stroke-dashoffset: var(--md-progress-spinner-end-value);
+        transform: rotateX(180deg) rotate(72.5deg)
+    }
+
+    25% {
+        stroke-dashoffset: var(--md-progress-spinner-start-value);
+        transform: rotateX(180deg) rotate(72.5deg)
+    }
+
+    25.1% {
+        stroke-dashoffset: var(--md-progress-spinner-start-value);
+        transform: rotate(270deg)
+    }
+
+    37.5% {
+        stroke-dashoffset: var(--md-progress-spinner-end-value);
+        transform: rotate(270deg)
+    }
+
+    37.51% {
+        stroke-dashoffset: var(--md-progress-spinner-end-value);
+        transform: rotateX(180deg) rotate(161.5deg)
+    }
+
+    50% {
+        stroke-dashoffset: var(--md-progress-spinner-start-value);
+        transform: rotateX(180deg) rotate(161.5deg)
+    }
+
+    50.01% {
+        stroke-dashoffset: var(--md-progress-spinner-start-value);
+        transform: rotate(180deg)
+    }
+
+    62.5% {
+        stroke-dashoffset: var(--md-progress-spinner-end-value);
+        transform: rotate(180deg)
+    }
+
+    62.51% {
+        stroke-dashoffset: var(--md-progress-spinner-end-value);
+        transform: rotateX(180deg) rotate(251.5deg)
+    }
+
+    75% {
+        stroke-dashoffset: var(--md-progress-spinner-start-value);
+        transform: rotateX(180deg) rotate(251.5deg)
+    }
+
+    75.01% {
+        stroke-dashoffset: var(--md-progress-spinner-start-value);
+        transform: rotate(90deg)
+    }
+
+    87.5% {
+        stroke-dashoffset: var(--md-progress-spinner-end-value);
+        transform: rotate(90deg)
+    }
+
+    87.51% {
+        stroke-dashoffset: var(--md-progress-spinner-end-value);
+        transform: rotateX(180deg) rotate(341.5deg)
+    }
+
+    to {
+        stroke-dashoffset: var(--md-progress-spinner-start-value);
+        transform: rotateX(180deg) rotate(341.5deg)
+    }
+}
+
+/* ----------------- */
 
 #artists {
     padding: 40px;

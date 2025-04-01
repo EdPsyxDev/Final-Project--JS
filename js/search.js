@@ -30,3 +30,40 @@ if (bentoMenu && closeBtn && showMenu) {
     }, 700);
   });
 }
+
+// /---/ //
+
+const progressBar = document.querySelector('.md-progress-bar');
+
+function showLoadingBar() {
+    progressBar.classList.add('loading');
+    progressBar.style.opacity = '1';
+    progressBar.style.transform = 'translateZ(0) scaleY(1)';
+}
+
+function hideLoadingBar() {
+    progressBar.style.opacity = '0';
+    progressBar.style.transform = 'translateZ(0) scaleY(0)';
+    
+    setTimeout(() => {
+        progressBar.classList.remove('loading');
+    }, 400);
+}
+
+async function fetchData() {
+    try {
+        showLoadingBar();
+
+        await new Promise(resolve => setTimeout(resolve, 2000));
+
+    } catch (err) {
+        console.error('Error cargando datos', err);
+    } finally {
+        hideLoadingBar();
+    }
+}
+
+window.addEventListener('DOMContentLoaded', fetchData);
+
+
+

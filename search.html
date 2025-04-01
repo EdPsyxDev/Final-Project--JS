@@ -63,12 +63,45 @@
                     <div class="md-progress-bar-fill"></div>
                     <div class="md-progress-bar-buffer"></div>
                 </div>
-                <div id="filter" class="content-wrapper justify-between">
+                <div id="filter" class= "content-wrapper justify-between">
                     <h1 class="search-info">
                         <span class="black-txt">Search results:</span>
                     </h1>
                     <div class="filter flex flex-col">
-                        <button id="filter-btn" class="filter"></button>
+                        <button id="filter-btn" class="filter-toggle">
+                            <svg class="filter-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M3 6h18v2H3zm4 5h10v2H7zm2 5h6v2H9z" />
+                            </svg>
+                        </button>
+                        <div class="filter-section">
+                            <label for="filter-date">Date:</label>
+                            <select id="filter-date">
+                                <option value="All">All dates</option>
+                                <option value="upcoming">Upcoming</option>
+                                <option value="past">Past</option>
+                            </select>
+                        </div>
+                        <div class="filter-section">
+                            <label for="filter-order">Order by:</label>
+                            <select id="filter-order">
+                                <option value="date">Date</option>
+                                <option value="alphabetical">A - Z</option>
+                            </select>
+                        </div>
+                        <div class="filter-section ">
+                            <label for="filter-artist">Artist name:</label>
+                            <input type="text" id="filter-artist" placeholder="Enter artist name">
+                        </div>
+                        <div class="filter-section">
+                            <label>
+                                <input type="checkbox" id="filter-available">
+                                Only show events with tickets
+                            </label>
+                        </div>
+                        <div class="filter-section">
+                            <label for="filter-location">Location:</label>
+                            <input type="text" id="filter-location" placeholder="Enter City, State or Country">
+                        </div>
                     </div>
                 </div>
                 <div id="artists"></div>

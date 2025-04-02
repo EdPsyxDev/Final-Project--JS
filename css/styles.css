@@ -320,7 +320,7 @@ button.not-loading {
     cursor: pointer;
 }
 button.not-loading:active {
-transform: scale(.95)
+    transform: scale(.95)
 }
 button.not-loading:hover {
     background-color: #ff6655;
@@ -334,6 +334,8 @@ button.not-loading svg.fa-search {
 button.loading {
     background-color: #000;
     cursor: no-drop;
+    border: 1px solid #000;
+
 }
 button.loading:hover {
     background-color: #000;
@@ -752,7 +754,7 @@ a.linkM:hover {
 
 @media screen and (max-height: 1200px) {
     #landing-page {
-        max-height:none
+        max-height: none
     }
 
     .navbar {

@@ -65,5 +65,11 @@ async function fetchData() {
 
 window.addEventListener('DOMContentLoaded', fetchData);
 
+// /---/ //
 
+const filterBtn = document.getElementById('filter-btn');
+const filterPanel = document.querySelector('.filter-panel');
 
+filterBtn.addEventListener('click', () => {
+  filterPanel.classList.toggle('active');
+});

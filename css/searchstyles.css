@@ -402,8 +402,9 @@ button.filter-toggle {
     font-size: 31px;
 }
 
-input[id="filter-artist"], input[id="filter-location"], label {
-    height: 28px;
+input[id="filter-artist"], 
+input[id="filter-location"], label {
+    height: 37px;
 }
 
 .filter-toggle {
@@ -458,10 +459,10 @@ input[id="filter-artist"], input[id="filter-location"], label {
 
 .filter-section select, 
 .filter-section input[id="filter-artist"], input[id="filter-location"] {
-    padding: 4px 10px;
+    padding: 8px 12px;
     border: 1px solid #ccc;
     border-radius: 20px;
-    font-size: 10px;
+    font-size: 12px;
     outline: none;
     transition: border-color 0.2s ease;
 }
@@ -513,7 +514,7 @@ input[type="checkbox"]:checked::after {
 
 .filter-panel {
     width: 300px;
-    height: 430px;
+    height: 500px;
     margin-left: -40px;
     position: relative;
     overflow: hidden;
@@ -584,7 +585,11 @@ input[type="checkbox"]:checked::after {
 /*  */
 
 @media screen and (max-width: 375px) {
-    input {
+    h1 {
+        font-size: 23px;
+    }
+
+    #search-input {
         font-size: 14px;
     }
 
@@ -620,18 +625,63 @@ input[type="checkbox"]:checked::after {
         font-size: 31px;
     }
 
-    input {
+    #search-input {
       font-size: 16px;  
+    }
+    .input-wrap {
+        max-width: 500px;
     }
 }
 
 
 @media screen and (max-width: 750px) {
+    h1 {
+        font-size: 36px;
+    }
+
+    #search-input {
+        font-size: 18px;
+    }
+    .input-wrap {
+        max-width: 500px;
+    }
+
+
     .links {
         display: none !important;
     }
 
     #phone-nav {
         display: block;
+    }
+
+    .search-info {
+        font-size: 24px;
+    }
+
+    .filter-section {
+        margin: 20px 30px;
+    }
+
+    .filter-section select, 
+    .filter-section input[id="filter-artist"], 
+    input[id="filter-location"] {
+        padding: 4px 12px;
+        font-size: 11px;
+    }
+
+    input[id="filter-artist"], 
+    input[id="filter-location"], label {
+        height: 29px;
+    }
+
+    .filter-panel {
+        width: 250px;
+        height: 420px;
+        padding: 30px 0;
+    }
+
+    .filter-section label {
+        font-size: 12px;
     }
 }

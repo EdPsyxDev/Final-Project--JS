@@ -119,3 +119,38 @@ input.addEventListener('keydown', (e) => {
 })
 
 searchIcon.addEventListener('click', handleSearch);
+
+
+const urlParams = new URLSearchParams(window.location.search);
+const query = urlParams.get('query');
+
+if (query) {
+  console.log('query found:', query);
+  simulateSearch(query);
+}
+
+function simulateSearch(query) {
+  const container = document.getElementById('artists');
+
+  container.innerHTML = '';
+
+  const spinner = document.createElement('div');
+  spinner.className = 'loading-state'
+  spinner.innerHTML = `
+    <div class="loading-artists">
+      <i class="fas fa-spinner"></i>
+      <p>Loading results</p>
+    </div>`;
+
+  container.appendChild(spinner);
+  
+  setTimeout(() => {
+    spinner.remove();
+    const empty = document.createElement('div');
+    empty.className = 'empty-state';
+    empty.innerHTML = `
+    <h1>No results found</h1>
+    <span>We couldn't find anything for "${query}". Try another search.</span>`;
+    container.appendChild(empty);
+  }, 2000);
+}

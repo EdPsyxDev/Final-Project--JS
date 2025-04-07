@@ -389,15 +389,15 @@ SEARCH
 
 .filter-wrapper {
     position: relative;
-    height: fit-content;
-    width: fit-content;
+    top: 0;
     max-width: 320px;
-    padding: 20px 0;
     background-color: #fff;
     border-radius: 20px;
 }
 
 button.filter-toggle {
+    padding: 0;
+    height: 50px;
     width: 64px;
     font-size: 31px;
 }
@@ -412,7 +412,7 @@ input[id="filter-location"], label {
     background-color: #c7000c;
     color: #fff;
     border-radius: 30px;
-    top: 20px;
+    top: 10px;
     right: 10px;
     display: flex;
     align-items: center;
@@ -440,11 +440,16 @@ input[id="filter-location"], label {
     align-items: center;
 }
 
+.filter-panel-content {
+    padding: 25px 0 0 0;
+}
+
 .filter-section {
     position: relative;
     display: flex;
     flex-direction: column;
-    margin: 20px;
+    padding: 10px;
+    margin: 0px 20px;
 }
 
 .filter-section label {
@@ -474,6 +479,10 @@ input[id="filter-location"], label {
     font-weight: 500;
     font-size: 14px;
     color: #000;
+}
+
+select {
+    cursor: pointer;
 }
 
 input[type="checkbox"] {
@@ -514,22 +523,21 @@ input[type="checkbox"]:checked::after {
 
 .filter-panel {
     width: 300px;
-    height: 500px;
+    height: 510px;
+    max-width: 0;
+    max-height: 0;
     margin-left: -40px;
     position: relative;
     overflow: hidden;
     opacity: 0;
-    padding: 50px 0;
+    padding: 45px 0;
     background-color: #fff;
     border-radius: 20px;
     transform: translateY(-10px);
-    transition: max-height 0.4s ease, opacity 0.4s ease, transform 0.4s ease;
-}
-
-.filter-panel.active {
-    max-height: 1400px;
-    opacity: 1;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    transform-origin: right top;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.10);
+    transition: max-height .5s ease, max-width .6s ease, opacity .7s ease, transform .6s ease;
+    will-change: transform, opacity, max-height, max-width;
 }
 
 /* ----------------- */
@@ -597,6 +605,10 @@ input[type="checkbox"]:checked::after {
         font-size: 20px;
         padding: 0 10px 0 8px;
     }
+
+    .filter-section input {
+        font-size: 12px !important;
+    }
 }
 
 
@@ -659,26 +671,34 @@ input[type="checkbox"]:checked::after {
         font-size: 24px;
     }
 
-    .filter-section {
-        margin: 20px 30px;
+    button.filter-toggle {
+        padding: 0;
+        height: 40px;
+        width: 54px;
+        font-size: 31px;
     }
+
 
     .filter-section select, 
     .filter-section input[id="filter-artist"], 
     input[id="filter-location"] {
-        padding: 4px 12px;
         font-size: 11px;
+
     }
 
     input[id="filter-artist"], 
-    input[id="filter-location"], label {
+    input[id="filter-location"], 
+    label, select {
         height: 29px;
     }
 
+    .filter-section select {
+        padding: 4px 8px !important;
+    }
+
     .filter-panel {
-        width: 250px;
-        height: 420px;
-        padding: 30px 0;
+        width: 220px;
+        height: 450px;
     }
 
     .filter-section label {

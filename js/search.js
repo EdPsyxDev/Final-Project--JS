@@ -57,7 +57,7 @@ async function fetchData() {
         await new Promise(resolve => setTimeout(resolve, 2000));
 
     } catch (err) {
-        console.error('Error cargando datos', err);
+        console.error('...', err);
     } finally {
         hideLoadingBar();
     }
@@ -70,6 +70,52 @@ window.addEventListener('DOMContentLoaded', fetchData);
 const filterBtn = document.getElementById('filter-btn');
 const filterPanel = document.querySelector('.filter-panel');
 
+let isMenuOpen = false;
+
 filterBtn.addEventListener('click', () => {
-  filterPanel.classList.toggle('active');
+  if (!isMenuOpen) {
+    filterPanel.style.maxWidth = '320px';
+    filterPanel.style.opacity = '1';
+
+    setTimeout(() => {
+      filterPanel.style.maxHeight = '1500px';
+      filterPanel.style.transform = 'translateY(0)';
+    }, 320);
+    
+    isMenuOpen = true;
+  }
+  else {
+    filterPanel.style.maxHeight = '10px';
+    filterPanel.style.transform = 'translateY(-10px)';
+    filterPanel.style.opacity = '0';
+
+
+    setTimeout
+
+    setTimeout(() => {
+      filterPanel.style.maxWidth = '0px';
+      filterPanel.style.maxHeight = '-20px';
+    }, 300);
+  
+    isMenuOpen = false;
+  }
 });
+
+const input = document.getElementById('search-input');
+const searchIcon = document.querySelector('.search-wrapper');
+
+function handleSearch() {
+  const query = input.ariaValueMax.trim();
+  if (query) {
+    const encodedQuery = encodeURIComponent(query);
+    window.location.href = `/search.html?query=${encodedQuery}`;
+  }
+}
+
+input.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    handleSearch();
+  }
+})
+
+searchIcon.addEventListener('click', handleSearch);

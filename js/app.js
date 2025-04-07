@@ -1,16 +1,39 @@
-const button = document.querySelector('.input-wrapper button');
+// const button = document.querySelector('.input-wrapper button');
 
-button.addEventListener('click', () => {
-  if (!button.classList.contains('loading')) {
-    button.classList.remove('not-loading');
-    button.classList.add('loading');
+// button.addEventListener('click', () => {
+//   if (!button.classList.contains('loading')) {
+//     button.classList.remove('not-loading');
+//     button.classList.add('loading');
 
-    setTimeout(() => {
-      button.classList.remove('loading');
-      button.classList.add('not-loading');
-    }, 2000);
-  }
-});
+//     setTimeout(() => {
+//       button.classList.remove('loading');
+//       button.classList.add('not-loading');
+//     }, 2000);
+//   }
+// });
+
+const searchInput = document.getElementById('main-search-input');
+const searchBtn = document.querySelector('.input-wrapper button');
+
+if (searchBtn && searchInput) {
+  searchBtn.addEventListener('click', () => {
+    const query = searchInput.value.trim();
+    if (!query) {
+      alert('Please enter sometthing to search.');
+      return;
+    }
+
+    if (!searchBtn.classList.contains('loading')) {
+      searchBtn.classList.remove('not-loading');
+      searchBtn.classList.add('loading');
+
+      setTimeout(() => {
+        const encodedQuery = encodeURIComponent(query);
+        window.location.href = `search.html?query=${encodedQuery}`;
+      }, 800);
+    }
+  });
+}
 
 
 

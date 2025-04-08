@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Find Your Artist</title>
+    <title>Find Your Lyrics</title>
     <link rel="stylesheet" href="./css/styles.css">
     <link rel="stylesheet" href="./css/searchstyles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
@@ -19,7 +19,7 @@
                     </div>
                     <div class="links align-center justify-between">
                         <a href="/" class="link rle-active">Home</a>
-                        <a href="/search.html" class="link">Find your Artist</a>
+                        <a href="/search.html" class="link">Find your Lyrics</a>
                         <a href="/" class="btn-contact">Contact</a>
                     </div>
                     <div id="phone-nav">
@@ -37,15 +37,16 @@
                         <div class="close-btn"></div>
                         <div class="showMenu">
                             <a href="/" class="linkM rle-active rl-active">Home</a>
-                            <a href="/search.html" class="linkM">Find your Artist</a>
+                            <a href="/search.html" class="linkM">Find your Lyrics</a>
                             <a href="/" class="linkM rle-active rl-active">Contact</a>
                         </div>
                     </div>
                 </div>
                 <div class="content-wrapper wrapper flex-col align-center" style="margin-top: 40px;">
-                    <h1 class="nav-header">Browse Artists</h1>
+                    <h1 class="nav-header">Browse Lyrics</h1>
                     <div class="input-wrapper">
-                        <input id="search-input" type="text" placeholder="Search for artists, concerts, venues and festivals">
+                        <input id="search-input" type="text" placeholder="Search by artist and song title">
+                        <div class="suggestions-box" id="suggestions"></div>
                         <div class="search-wrapper flex justify-center align-center">
                             <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" role="img"
                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-search fa-w-16">
@@ -68,48 +69,8 @@
                     <h1 class="search-info">
                         <span class="black-txt">Search results:</span>
                     </h1>
-                    <div class="filter-wrapper">
-                        <button id="filter-btn" class="filter-toggle">
-                            <svg class="filter-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                <path fill="currentColor" d="M3 6h18v2H3zm4 5h10v2H7zm2 5h6v2H9z" />
-                            </svg>
-                        </button>
-                        <div class="filter-panel">
-                            <div class="filter-panel-content">
-                                <div class="filter-section">
-                                    <label for="filter-date">Date:</label>
-                                    <select id="filter-date">
-                                        <option value="All">All dates</option>
-                                        <option value="upcoming">Upcoming</option>
-                                        <option value="past">Past</option>
-                                    </select>
-                                </div>
-                                <div class="filter-section">
-                                    <label for="filter-order">Order by:</label>
-                                    <select id="filter-order">
-                                        <option value="date">Date</option>
-                                        <option value="alphabetical">A - Z</option>
-                                    </select>
-                                </div>
-                                <div class="filter-section">
-                                    <label for="filter-artist">Artist name:</label>
-                                    <input type="text" id="filter-artist" placeholder="Enter artist name">
-                                </div>
-                                <div class="filter-section">
-                                    <label for="filter-location">Location:</label>
-                                    <input type="text" id="filter-location" placeholder="Enter City, State or Country">
-                                </div>
-                                <div class="filter-section">
-                                    <label>
-                                        <input type="checkbox" id="filter-available">
-                                        Show only available
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-                <div id="artists"></div>
+                <div id="lyrics"></div>
             </section>
         </div>
     </div>

@@ -218,12 +218,6 @@ SEARCH
     letter-spacing: normal;
 }
 
-#filter {
-    padding: 0 20px;
-    align-items: center;
-    
-}
-
 @keyframes i {
     0% {
         stroke-dashoffset: var(--md-progress-spinner-start-value);
@@ -392,158 +386,7 @@ SEARCH
     opacity: 0;
 }
 
-.filter-wrapper {
-    position: relative;
-    top: 0;
-    max-width: 320px;
-    background-color: #fff;
-    border-radius: 20px;
-}
 
-button.filter-toggle {
-    padding: 0;
-    height: 50px;
-    width: 64px;
-    font-size: 31px;
-}
-
-input[id="filter-artist"], 
-input[id="filter-location"], label {
-    height: 37px;
-}
-
-.filter-toggle {
-    position: absolute;
-    background-color: #c7000c;
-    color: #fff;
-    border-radius: 30px;
-    top: 10px;
-    right: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    border: 1px solid #000;
-    transition: background-color .3s ease;
-    z-index: 10;
-}
-.filter-toggle:hover {
-    background-color: #ff6655;
-    border-color: 1px solid #000;
-}
-.filter-toggle:active {
-    transform: scale(.95);
-    transition: transform .1 ease;
-}
-
-
-.filter-icon {
-    width: 30px;
-    height: 42px;
-    fill: currentColor;
-    display: block;
-    align-items: center;
-}
-
-.filter-panel-content {
-    padding: 25px 0 0 0;
-}
-
-.filter-section {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
-    margin: 0px 20px;
-}
-
-.filter-section label {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 14px;
-    font-weight: 500;
-    color: #000;
-}
-
-
-.filter-section select, 
-.filter-section input[id="filter-artist"], input[id="filter-location"] {
-    padding: 8px 12px;
-    border: 1px solid #ccc;
-    border-radius: 20px;
-    font-size: 12px;
-    outline: none;
-    transition: border-color 0.2s ease;
-}
-
-.filter-section label[for="filter-available"],
-.filter-section label input[type="checkbox"] {
-    align-items: center;
-    gap: 10px;
-    font-weight: 500;
-    font-size: 14px;
-    color: #000;
-}
-
-select {
-    cursor: pointer;
-}
-
-input[type="checkbox"] {
-    appearance: none;
-    -webkit-appearance: none;
-    padding: 0;
-    width: 20px;
-    height: 20px;
-    border: 1px solid #ccc;
-    border-radius: 28px;
-    background-color: #fff;
-    cursor: pointer;
-    position: relative;
-    transition: background-color .3s ease, border-color .3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-input[type="checkbox"]:checked {
-    background-color: #c7000c;
-    border-color: #c7000c;
-}
-
-input[type="checkbox"]:checked:hover {
-    background-color: #ff6655;
-}
-
-input[type="checkbox"]:checked::after {
-    content: '✓';
-    color: white;
-    position: absolute;
-    font-size: 10px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.filter-panel {
-    width: 300px;
-    height: 510px;
-    max-width: 0;
-    max-height: 0;
-    margin-left: -40px;
-    position: relative;
-    overflow: hidden;
-    opacity: 0;
-    padding: 45px 0;
-    background-color: #fff;
-    border-radius: 20px;
-    transform: translateY(-10px);
-    transform-origin: right top;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.10);
-    transition: max-height .5s ease, max-width .6s ease, opacity .7s ease, transform .6s ease;
-    will-change: transform, opacity, max-height, max-width;
-}
 
 /* ----------------- */
 
@@ -584,7 +427,7 @@ input[type="checkbox"]:checked::after {
 
 .empty-state h1 {
     margin: 14px 0 6px 0;
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 700;
     color: #c7000c;
 }
@@ -609,17 +452,10 @@ input[type="checkbox"]:checked::after {
         padding: 0 10px 0 8px;
     }
 
-    .filter-section input {
-        font-size: 12px !important;
-    }
 }
 
 
 @media(max-width: 450px) {
-    #filter {
-        padding:0!important
-    }
-
     h2 {
         display: flex;
         flex-direction: column
@@ -627,10 +463,6 @@ input[type="checkbox"]:checked::after {
 
     h2 .black-txt {
         margin-bottom: 6px
-    }
-
-    .slider-wrapper {
-        width: 70%
     }
 }
 
@@ -672,39 +504,5 @@ input[type="checkbox"]:checked::after {
 
     .search-info {
         font-size: 24px;
-    }
-
-    button.filter-toggle {
-        padding: 0;
-        height: 40px;
-        width: 54px;
-        font-size: 31px;
-    }
-
-
-    .filter-section select, 
-    .filter-section input[id="filter-artist"], 
-    input[id="filter-location"] {
-        font-size: 11px;
-
-    }
-
-    input[id="filter-artist"], 
-    input[id="filter-location"], 
-    label, select {
-        height: 29px;
-    }
-
-    .filter-section select {
-        padding: 4px 8px !important;
-    }
-
-    .filter-panel {
-        width: 220px;
-        height: 450px;
-    }
-
-    .filter-section label {
-        font-size: 12px;
     }
 }

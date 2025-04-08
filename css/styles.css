@@ -241,6 +241,7 @@ Landing Page
 }
 
 h1 {
+    text-align: center;
     font-size: 58px;
     max-width: 730px;
     font-weight: 700;
@@ -299,6 +300,59 @@ input:focus {
     animation-delay: 1.1s;
     opacity: 0;
 }
+
+.suggestions-box {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 10;
+    background: white;
+    border-radius: 0 0 12px 12px;
+    padding: 10px;
+    box-shadow: 0 5px 12px rgba(0, 0, 0, .15);
+    max-height: 320px;
+    overflow-y: auto;
+    display: none;
+}
+
+.suggestion-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    gap: 12px;
+    cursor: pointer;
+    transition: background-color .2s ease;
+}
+
+.suggestion-item:hover {
+    background-color: #f1f1f1;
+}
+
+.suggestion-item img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50px;
+    object-fit: cover;
+}
+
+.suggestion-item .text {
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+}
+
+.suggestion-item .text .artist {
+    font-weight: bold;
+}
+
+.suggestion-item .text .title {
+    font-size: 12px;
+    color: #777;
+}
+
+
 
 button {
     width: 200px;

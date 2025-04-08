@@ -1,35 +1,35 @@
-const bentoMenu = document.querySelector('.bento-menu');
-const closeBtn = document.querySelector('.close-btn');
-const showMenu = document.querySelector('.showMenu');
+// const bentoMenu = document.querySelector('.bento-menu');
+// const closeBtn = document.querySelector('.close-btn');
+// const showMenu = document.querySelector('.showMenu');
 
-if (bentoMenu && closeBtn && showMenu) {
-  let isMenuOpen = false;
+// if (bentoMenu && closeBtn && showMenu) {
+//   let isMenuOpen = false;
 
-  bentoMenu.addEventListener('click', () => {
-    if (isMenuOpen) return;
+//   bentoMenu.addEventListener('click', () => {
+//     if (isMenuOpen) return;
 
-    bentoMenu.classList.remove('show-anim-in');
-    bentoMenu.classList.add('hide-anim-out');
+//     bentoMenu.classList.remove('show-anim-in');
+//     bentoMenu.classList.add('hide-anim-out');
 
-    setTimeout(() => {
-      closeBtn.classList.add('show');
-      showMenu.classList.add('active');
-      isMenuOpen = true;
-    }, 100);
-  });
+//     setTimeout(() => {
+//       closeBtn.classList.add('show');
+//       showMenu.classList.add('active');
+//       isMenuOpen = true;
+//     }, 100);
+//   });
 
-  closeBtn.addEventListener('click', () => {
-    closeBtn.classList.remove('show');
-    showMenu.classList.remove('active');
+//   closeBtn.addEventListener('click', () => {
+//     closeBtn.classList.remove('show');
+//     showMenu.classList.remove('active');
 
-    setTimeout(() => {
-      bentoMenu.style.display = 'flex';
-      bentoMenu.classList.remove('hide-anim-out');
-      bentoMenu.classList.add('show-anim-in');
-      isMenuOpen = false;
-    }, 700);
-  });
-}
+//     setTimeout(() => {
+//       bentoMenu.style.display = 'flex';
+//       bentoMenu.classList.remove('hide-anim-out');
+//       bentoMenu.classList.add('show-anim-in');
+//       isMenuOpen = false;
+//     }, 700);
+//   });
+// }
 
 // /---/ //
 
@@ -67,59 +67,67 @@ window.addEventListener('DOMContentLoaded', fetchData);
 
 // /---/ //
 
-const filterBtn = document.getElementById('filter-btn');
-const filterPanel = document.querySelector('.filter-panel');
+const searchInput = document.getElementById('search-input');
+const suggestionsBox = document.getElementById('suggestions');
 
-let isMenuOpen = false;
+searchInput.addEventListener('input', async () => {
+  const query = searchInput.value.trim();
 
-filterBtn.addEventListener('click', () => {
-  if (!isMenuOpen) {
-    filterPanel.style.maxWidth = '320px';
-    filterPanel.style.opacity = '1';
-
-    setTimeout(() => {
-      filterPanel.style.maxHeight = '1500px';
-      filterPanel.style.transform = 'translateY(0)';
-    }, 320);
-    
-    isMenuOpen = true;
+  if(!query) {
+    suggestionsBox.innerHTML = '';
+    suggestionsBox.style.display = 'none';
+    return;
   }
-  else {
-    filterPanel.style.maxHeight = '10px';
-    filterPanel.style.transform = 'translateY(-10px)';
-    filterPanel.style.opacity = '0';
 
+  try {
+    const res = await fetch(`https://api.lyrics.ovh/suggest/${encodeURIComponent(query)}`);
+    if (!res.ok) throw new Error(`HTTP error ${res.status}`);
 
-    setTimeout
+    const data = await res.json();
+    console.log('API response:', data);
 
-    setTimeout(() => {
-      filterPanel.style.maxWidth = '0px';
-      filterPanel.style.maxHeight = '-20px';
-    }, 300);
+    const results = data.data.slice(0, 20); // suggests limit
+
+    if (results.length === 0) {
+      suggestionsBox.innerHTML = '';
+      suggestionsBox.style.display = 'none';
+      return;
+    }
+
+    suggestionsBox.innerHTML = results.map(result => `
+      <div class="suggestion-item" data-artist="${result.artist.name}" data-title="${result.title}">
+        <img src="${result.artist.picture_small}" alt="${result.artist.name}">
+        <div class="text">
+          <span class="artist">${result.title}</span>
+          <span class="title">${result.artist.name}</span>
+        </div>
+      </div>
+      `).join('');
+
+      suggestionsBox.style.display = 'block';
+
+    } catch (err) {
+      console.error('Error finding suggest', err);
+  }
   
-    isMenuOpen = false;
-  }
+  
+  // suggestionsBox.addEventListener('click', (e) => {
+  //   const item = e.target.closest('.suggestion.item');
+  //   if (!item) return;
+    
+  //   const artist = item.dataset.artist;
+  //   const title = item.dataset.title;
+    
+  //   const encodedArtist = encodeURIComponent(artist);
+  //   const encodedTitle = encodeURIComponent(title);
+    
+  //   window.location.href = `/search.html?artist=${encodedArtist}&title=${encodedTitle}`;  
+    
+  // });
+  
 });
 
-const input = document.getElementById('search-input');
-const searchIcon = document.querySelector('.search-wrapper');
-
-function handleSearch() {
-  const query = input.ariaValueMax.trim();
-  if (query) {
-    const encodedQuery = encodeURIComponent(query);
-    window.location.href = `/search.html?query=${encodedQuery}`;
-  }
-}
-
-input.addEventListener('keydown', (e) => {
-  if (e.key === 'Enter') {
-    handleSearch();
-  }
-})
-
-searchIcon.addEventListener('click', handleSearch);
-
+// /---/ //
 
 const urlParams = new URLSearchParams(window.location.search);
 const query = urlParams.get('query');
@@ -130,7 +138,7 @@ if (query) {
 }
 
 function simulateSearch(query) {
-  const container = document.getElementById('artists');
+  const container = document.getElementById('lyrics');
 
   container.innerHTML = '';
 

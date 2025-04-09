@@ -76,6 +76,7 @@ searchInput.addEventListener('input', async () => {
   if(!query) {
     suggestionsBox.innerHTML = '';
     suggestionsBox.style.display = 'none';
+    suggestionsBox.classList.add('shows');
     return;
   }
 
@@ -91,6 +92,7 @@ searchInput.addEventListener('input', async () => {
     if (results.length === 0) {
       suggestionsBox.innerHTML = '';
       suggestionsBox.style.display = 'none';
+      suggestionsBox.classList.add('shows');
       return;
     }
 
@@ -104,6 +106,7 @@ searchInput.addEventListener('input', async () => {
       </div>
       `).join('');
 
+      suggestionsBox.classList.add('shows');
       suggestionsBox.style.display = 'block';
 
     } catch (err) {
@@ -111,23 +114,27 @@ searchInput.addEventListener('input', async () => {
   }
   
   
-  // suggestionsBox.addEventListener('click', (e) => {
-  //   const item = e.target.closest('.suggestion.item');
-  //   if (!item) return;
+  suggestionsBox.addEventListener('click', (e) => {
+    const item = e.target.closest('.suggestion.item');
+    if (!item) return;
     
-  //   const artist = item.dataset.artist;
-  //   const title = item.dataset.title;
+    const artist = item.dataset.artist;
+    const title = item.dataset.title;
     
-  //   const encodedArtist = encodeURIComponent(artist);
-  //   const encodedTitle = encodeURIComponent(title);
+    const encodedArtist = encodeURIComponent(artist);
+    const encodedTitle = encodeURIComponent(title);
     
-  //   window.location.href = `/search.html?artist=${encodedArtist}&title=${encodedTitle}`;  
-    
-  // });
-  
+    window.location.href = `/search.html?artist=${encodedArtist}&title=${encodedTitle}`;
+  });
 });
 
-// /---/ //
+document.addEventListener('click', (e) => {
+  if (!suggestionsBox.contains(e.target) && e.target !== searchInput) {
+    suggestionsBox.classList.remove('shows');
+  }
+});
+
+  // /---/ //
 
 const urlParams = new URLSearchParams(window.location.search);
 const query = urlParams.get('query');

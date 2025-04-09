@@ -301,6 +301,36 @@ input:focus {
     opacity: 0;
 }
 
+#suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    max-height: 300px;
+    overflow-y: auto;
+    background: white;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, .1);
+    backdrop-filter: blur(10px);
+    z-index: 10;
+    transition: opacity .4s ease, transform .4s ease;
+    opacity: 0;
+    pointer-events: none;
+}
+#suggestions.shows {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+#suggestions::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    height: 30px;
+    width: 100%;
+    background: linear-gradient(to bottom, white, transparent);
+    z-index: 1;
+}
+
 .suggestions-box {
     position: absolute;
     top: 100%;
@@ -310,9 +340,7 @@ input:focus {
     z-index: 10;
     background: white;
     border-radius: 0 0 12px 12px;
-    padding: 10px;
     box-shadow: 0 5px 12px rgba(0, 0, 0, .15);
-    max-height: 320px;
     overflow-y: auto;
     display: none;
 }

@@ -70,34 +70,34 @@ if (bentoMenu && closeBtn && showMenu) {
   });
 }
 
-const searchmain = document.getElementById('search-input');
-const suggestionsBox = document.getElementById('suggestions');
+const inputMain = document.getElementById('main-input');
+const suggestionsBoxMain = document.getElementById('suggestions');
 
-searchmain.addEventListener('input', async () => {
-  const query = searchmain.value.trim();
+inputMain.addEventListener('input', async () => {
+  const query = inputMain.value.trim();
 
-  if(!query) {
-    suggestionsBox.innerHTML = '';
-    suggestionsBox.style.display = 'none';
+  if (!query) {
+    suggestionsBoxMain.innerHTML = '';
+    suggestionsBoxMain.style.display = 'none';
+    suggestionsBoxMain.classList.remove('shows');
     return;
   }
 
   try {
     const res = await fetch(`https://api.lyrics.ovh/suggest/${encodeURIComponent(query)}`);
     if (!res.ok) throw new Error(`HTTP error ${res.status}`);
-
+    
     const data = await res.json();
-    console.log('API response:', data);
-
-    const results = data.data.slice(0, 20); // suggests limit
+    const results = data.data.slice(0, 20);
 
     if (results.length === 0) {
-      suggestionsBox.innerHTML = '';
-      suggestionsBox.style.display = 'none';
+      suggestionsBoxMain.innerHTML = '';
+      suggestionsBoxMain.style.display = 'none';
+      suggestionsBoxMain.classList.remove('shows');
       return;
     }
 
-    suggestionsBox.innerHTML = results.map(result => `
+    suggestionsBoxMain.innerHTML = results.map(result => `
       <div class="suggestion-item" data-artist="${result.artist.name}" data-title="${result.title}">
         <img src="${result.artist.picture_small}" alt="${result.artist.name}">
         <div class="text">
@@ -105,26 +105,35 @@ searchmain.addEventListener('input', async () => {
           <span class="title">${result.artist.name}</span>
         </div>
       </div>
-      `).join('');
+    `).join('');
+    suggestionsBoxMain.classList.add('shows');
 
-      suggestionsBox.style.display = 'block';
+    suggestionsBoxMain.style.display = 'block';
 
-    } catch (err) {
-      console.error('Error finding suggest', err);
-  }  
+  } catch (err) {
+    suggestionsBoxMain.innerHTML = '';
+    suggestionsBoxMain.style.display = 'none';
+    console.error('Error fetching suggestions:', err);
+  }
+
+  suggestionsBoxMain.addEventListener('click', (e) => {
+    const item = e.target.closest('.suggestion-item');
+    if (!item) return;
+
+    const artist = item.dataset.artist;
+    const title = item.dataset.title;
+
+    const encodedArtist = encodeURIComponent(artist);
+    const encodedTitle = encodeURIComponent(title);
+
+    window.location.href = `/search.html?artist=${encodedArtist}&title=${encodedTitle}`;
+  });
 });
-  
-  // suggestionsBox.addEventListener('click', (e) => {
-  //   const item = e.target.closest('.suggestion.item');
-  //   if (!item) return;
-    
-  //   const artist = item.dataset.artist;
-  //   const title = item.dataset.title;
-    
-  //   const encodedArtist = encodeURIComponent(artist);
-  //   const encodedTitle = encodeURIComponent(title);
-    
-  //   window.location.href = `/search.html?artist=${encodedArtist}&title=${encodedTitle}`;  
-    
-  // });
-  
+
+
+
+document.addEventListener('click', (e) => {
+  if (!suggestionsBoxMain.contains(e.target) && e.target !== inputMain) {
+    suggestionsBoxMain.classList.remove('shows');
+  }
+})

@@ -299,37 +299,9 @@ input:focus {
     animation: fadeUp 1s ease-out forwards;
     animation-delay: 1.1s;
     opacity: 0;
+    z-index: 20;
 }
 
-#suggestions {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    max-height: 300px;
-    overflow-y: auto;
-    background: white;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, .1);
-    backdrop-filter: blur(10px);
-    z-index: 10;
-    transition: opacity .4s ease, transform .4s ease;
-    opacity: 0;
-    pointer-events: none;
-}
-#suggestions.shows {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-}
-#suggestions::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    height: 30px;
-    width: 100%;
-    background: linear-gradient(to bottom, white, transparent);
-    z-index: 1;
-}
 
 .suggestions-box {
     position: absolute;
@@ -337,13 +309,47 @@ input:focus {
     left: 0;
     right: 0;
     width: 100%;
-    z-index: 10;
+    padding-top: 10px;
     background: white;
-    border-radius: 0 0 12px 12px;
-    box-shadow: 0 5px 12px rgba(0, 0, 0, .15);
+    border-radius: 0 0 16px 16px;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, .12);
+    overflow: hidden;
     overflow-y: auto;
-    display: none;
+    max-height: 320px;
+    transform: translateY(-8px);
+    opacity: 0;
+    pointer-events: none;
+    transition: all .35s ease;
+    z-index: 10;
 }
+.suggestions-box::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 30px;
+    z-index: 2;
+}
+
+.suggestions-box::-webkit-scrollbar {
+    width: 6px;
+}
+.suggestions-box::-webkit-scrollbar-thumb {
+    background-color: #ff665590;
+    border-radius: 4px;
+}
+.suggestions-box::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.suggestions-box.shows {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+
 
 .suggestion-item {
     display: flex;

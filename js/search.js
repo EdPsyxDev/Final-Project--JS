@@ -87,7 +87,7 @@ searchInput.addEventListener('input', async () => {
     const data = await res.json();
     console.log('API response:', data);
 
-    const results = data.data.slice(0, 20); // suggests limit
+    const results = data.data.slice(0, 15); // suggests limit
 
     if (results.length === 0) {
       suggestionsBox.innerHTML = '';
@@ -134,38 +134,143 @@ document.addEventListener('click', (e) => {
   }
 });
 
-  // /---/ //
+// /---/ //
 
 const urlParams = new URLSearchParams(window.location.search);
 const query = urlParams.get('query');
 
 if (query) {
   console.log('query found:', query);
-  simulateSearch(query);
+  loadResults(query);
 }
 
-function simulateSearch(query) {
-  const container = document.getElementById('lyrics');
+async function loadResults(query) {
+  const songsContainer = document.getElementById('songs-list');
+  const artistsContainer = document.getElementById('artists-list');
 
-  container.innerHTML = '';
+  if (!songsContainer || !artistsContainer) {
+    console.error('Missing result containers in the HTML');
+    return;
+  }
+
+  songsContainer.innerHTML = '';
+  artistsContainer.innerHTML = '';
 
   const spinner = document.createElement('div');
-  spinner.className = 'loading-state'
+  spinner.className = 'loading-state';
   spinner.innerHTML = `
     <div class="loading-artists">
       <i class="fas fa-spinner"></i>
       <p>Loading results</p>
     </div>`;
+  songsContainer.appendChild(spinner);
 
-  container.appendChild(spinner);
-  
-  setTimeout(() => {
+  try {
+    const res = await fetch(`https://api.lyrics.ovh/suggest/${encodeURIComponent(query)}`);
+    if (!res.ok) throw new Error(`HTTP error ${res.status}`);
+    const data = await res.json();
+
     spinner.remove();
-    const empty = document.createElement('div');
-    empty.className = 'empty-state';
-    empty.innerHTML = `
+
+    const results = data.data;
+    if (results.length === 0) {
+      showEmptyState(query);
+      return;
+    }
+
+    results.forEach(song => {
+      const songItem = document.createElement('div');
+      songItem.className = 'song-card';
+      songItem.innerHTML = `
+        <img src="${song.album.cover_medium}" alt="${song.title} cover">
+        <div class="text">
+          <h3>${song.title}</h3>
+          <p>${song.artist.name}</p>
+        </div>
+      `;
+      songItem.onclick = () => loadLyrics(song.artist.name, song.title);
+      songsContainer.appendChild(songItem);
+    });
+
+    const uniqueArtists = [...new Map(results.map(song => [song.artist.name, song.artist])).values()];
+
+    uniqueArtists.forEach(artist => {
+      const artistItem = document.createElement('div');
+      artistItem.className = 'artist-card';
+      artistItem.innerHTML = `
+        <img src="${artist.picture_medium}" alt="${artist.name}">
+        <p>${artist.name}</p>
+      `;
+      artistsContainer.appendChild(artistItem);
+    });
+
+  } catch (err) {
+    console.error('Error loading results:', err);
+    spinner.remove();
+    showEmptyState(query);
+  }
+}
+
+
+function showEmptyState(query) {
+  const songsContainer = document.getElementById('song-list');
+  songsContainer.innerHTML = '';
+  const empty = document.createElement('div');
+  empty.className = "empty-state";
+  empty.innerHTML = `
     <h1>No results found</h1>
     <span>We couldn't find anything for "${query}". Try another search.</span>`;
-    container.appendChild(empty);
-  }, 2000);
+    songsContainer.appendChild(empty);
 }
+
+async function loadLyrics(artist, title) {
+  const lyricsContainer = document.getElementById('lyrics-container');
+  lyricsContainer.innerHTML = '';
+
+  const spinner = document.createElement('div');
+  spinner.className = 'loading-state';
+  spinner.innerHTML = `
+    <div class="loading-artists">
+      <i class="fas fa-spinner"></i>
+      <p>Loading lyrics</p>
+    </div>`;
+  lyricsContainer.appendChild(spinner);
+
+  try {
+    const res = await fetch(`https://api.lyrics.ovh/v1/${encodeURIComponent(artist)}/${encodeURIComponent(title)}`);
+    if (!res.ok) throw new Error(`HTTP error ${res.status}`);
+    const data = await res.json();
+
+    spinner.remove();
+
+    const lyricsBlock = document.createElement('div');
+    lyricsBlock.className = 'lyrics-block';
+    lyricsBlock.innerHTML = `<h2>${title} - ${artist}</h2><pre>${data.lyrics}</pre>`;
+    lyricsContainer.appendChild(lyricsBlock); 
+  } catch (err) {
+    spinner.remove();
+    lyricsContainer.innerHTML = `<p class="empty-state">Couldn't load lyrics for "${title}"</p>`;
+    console.error('Error loading lyrics:', err);
+  }
+}
+
+// /---/ //
+
+const searchInputField = document.getElementById('search-input');
+const searchButton = document.getElementById('search-button');
+
+function updateSearchResults() {
+  const newQuery = searchInputField.value.trim();
+  if (!newQuery) return;
+
+  const encoded = encodeURIComponent(newQuery);
+  const newURL = new URL(window.location.href);
+  history.pushState({}, '', newURL);
+  loadResults(encoded);
+}
+
+searchInputField.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') updateSearchResults();
+});
+
+searchButton.addEventListener('click', updateSearchResults);

@@ -379,14 +379,124 @@ SEARCH
 
 /* ----------------- */
 
-#search-results {
+#search-section {
     padding: 40px 40px;
     animation: fadeUp .8s ease-out forwards;
     animation-delay: .8s;
     opacity: 0;
 }
 
+.search-results-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
 
+.search-results-container h3 {
+    display: flex;
+    align-items: center;
+}
+/* ----------------- */
+
+
+#songs-list {
+    flex: 1;
+    max-width: 500px;
+}
+
+#artists-list {
+    display: flex;
+    flex-direction: column;
+    min-width: 240px;
+}
+
+
+#songs-list::before {
+    content: "Songs";
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 10px;
+    display: block;
+}
+#artists-list::before {
+    content: "Artists";
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.song-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 15px;
+    margin-bottom: 15px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, .08);
+    transition: background-color .2s ease;
+    cursor: pointer;
+}
+.song-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, .1);
+}
+
+.song-card img {
+    width: 70px;
+    height: 70px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.song-card .text {
+    display: flex;
+    flex-direction: column;
+}
+.song-card .text h3 {
+    font-size: 18px;
+    margin: 0;
+    color: #c7000c;
+}
+.song-card .text p {
+    margin: 4px 0 0 0;
+    font-size: 14px;
+    color: #555;
+}
+
+.artist-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 15px;
+    margin-bottom: 15px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, .08);
+    transition: tranform .2s ease, box-shadow .2s ease;
+    cursor: pointer;
+}
+.artist-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, .1);
+}
+
+.artist-card img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.artist-card .text p {
+    font-weight: 600;
+    font-size: 15px;
+    color: #333;
+    margin: 0;
+}
 
 /* ----------------- */
 

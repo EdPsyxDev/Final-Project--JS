@@ -12,28 +12,39 @@
 //   }
 // });
 
-const searchInput = document.getElementById('main-search-input');
-const searchBtn = document.querySelector('.input-wrapper button');
+const input = document.getElementById('main-input');
+const button = document.getElementById('main-search-btn');
 
-if (searchBtn && searchInput) {
-  searchBtn.addEventListener('click', () => {
-    const query = searchInput.value.trim();
-    if (!query) {
-      alert('Please enter sometthing to search.');
-      return;
-    }
+function handleSearch() {
+  const query = input.value.trim();
+  if (!query) {
+    alert('Please enter something to search.');
+    return;
+  }
 
-    if (!searchBtn.classList.contains('loading')) {
-      searchBtn.classList.remove('not-loading');
-      searchBtn.classList.add('loading');
+  if (!button.classList.contains('loading')) {
+    button.classList.remove('not-loading');
+    button.classList.add('loading');
 
-      setTimeout(() => {
+    fetch(`https://api.lyrics.ovh/suggest/${encodeURIComponent(query)}`)
+      .then(res => res.json())
+      .then(data => {
         const encodedQuery = encodeURIComponent(query);
         window.location.href = `search.html?query=${encodedQuery}`;
-      }, 800);
-    }
-  });
+      })
+      .catch(err => {
+        console.error('Error searching:', err);
+        alert('Something went wrong.');
+      });
+  }
 }
+
+button.addEventListener('click', handleSearch);
+
+input.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') handleSearch();
+});
+
 
 
 
@@ -88,7 +99,7 @@ inputMain.addEventListener('input', async () => {
     if (!res.ok) throw new Error(`HTTP error ${res.status}`);
     
     const data = await res.json();
-    const results = data.data.slice(0, 20);
+    const results = data.data.slice(0, 15);
 
     if (results.length === 0) {
       suggestionsBoxMain.innerHTML = '';

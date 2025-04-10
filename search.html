@@ -46,8 +46,9 @@
                     <h1 class="nav-header">Browse Lyrics</h1>
                     <div class="input-wrapper">
                         <input id="search-input" type="text" placeholder="Search by artist and song title">
-                        <div class="suggestions-box" id="suggestions"></div>
-                        <div class="search-wrapper flex justify-center align-center">
+                        <div class="suggestions-box" id="suggestions">
+                        </div>
+                        <div id="search-button" class="search-wrapper flex justify-center align-center">
                             <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" role="img"
                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-search fa-w-16">
                                 <path fill="currentColor"
@@ -64,14 +65,27 @@
                 </div>
                 <div class="overlay"></div>
             </div>
-            <section id="search-results" class="content-wrapper flex flex-col">
-                <div class="search-container justify-between flex">
-                    <h1 class="search-info">
-                        <span class="black-txt">Search results:</span>
-                    </h1>
-                </div>
-                <div id="lyrics"></div>
+            <section id="search-section" class="content-wrapper flex flex-col">
+                    <h2> Search results:</h2>
+                    <div id="search-results" class="search-results-container">
+                        <div id="songs-list">
+                            <div class="song-card">
+                                <img src="COVER_URL" alt="song cover">
+                                <div class="info">
+                                    <h3>SONG_TITLE</h3>
+                                    <p>ARTIST_NAME</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="artists-list">
+                            <div class="artist-card">
+                                <img src="ARTIST_PICTURE" alt="Artist Picture">
+                                <p>ARTIST_NAME</p>
+                            </div>
+                        </div>
+                    </div>
             </section>
+            <div id="lyrics-container"></div>
         </div>
     </div>
 </body>

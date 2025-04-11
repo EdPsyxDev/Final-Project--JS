@@ -500,6 +500,72 @@ SEARCH
 
 /* ----------------- */
 
+.default-section {
+    padding: 60px 20px;
+    text-align: center;
+    opacity: .95;
+}
+
+.carousel-container {
+    position: relative;
+    overflow: hidden;
+    margin: 20px 0;
+}
+
+.carousel-track-container {
+    overflow: hidden;
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform .5s ease-in-out;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.carousel-navigation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.carousel-card {
+    min-width: 200px;
+    margin-right: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, .1);
+    text-align: center;
+    padding: 10px;
+}
+
+.carousel-card img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.carousel-button button {
+    background-color: rgba(0, 0, 0, .5);
+    border: none;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+}
+
+.carousel-button.prev {
+    left: 10px;
+}
+
+.carousel-button.next {
+    right: 10px;
+}
+
+/* ---------------- */
+
 .loading-state {
     display: flex;
     justify-content: center;

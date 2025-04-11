@@ -138,10 +138,25 @@ document.addEventListener('click', (e) => {
 
 const urlParams = new URLSearchParams(window.location.search);
 const query = urlParams.get('query');
+const artist = urlParams.get('artist');
+const title = urlParams.get('title');
 
-if (query) {
-  console.log('query found:', query);
+const defaultView = document.getElementById('default-view');
+const resultsSection = document.getElementById('search-results');
+const lyricsSection = document.getElementById('lyrics-container');
+
+if (artist && title) {
+  loadLyrics(decodeURIComponent(artist), decodeURIComponent(title));
+  resultsSection.style.display = 'none';
+  defaultView.style.display = 'none';
+} else if (query) {
   loadResults(query);
+  lyricsSection.style.display = 'none';
+  defaultView.style.display = 'none';
+} else {
+  defaultView.style.display = 'block';
+  resultsSection.style.display = 'none';
+  lyricsSection.style.display = 'none';
 }
 
 async function loadResults(query) {
@@ -274,3 +289,56 @@ searchInputField.addEventListener('keydown', (e) => {
 });
 
 searchButton.addEventListener('click', updateSearchResults);
+
+// /---/ //
+
+const track = document.querySelector('.carousel-track');
+const prevButton = document.querySelector('.carousel-button.prev');
+const nextButton = document.querySelector('.carousel-button.next');
+
+let currentIndex = 0;
+
+async function fetchTrendingSongs() {
+  try {
+    const response = await fetch ('https://api.audius.co/v1/tracks/trending?genre=metal&limit=10');
+    const data = await response.json();
+    const songs = data.data;
+
+    songs.forEach(song => {
+      const card = document.createElement('li');
+      card.classList.add('carousel-card');
+      card.innerHTML = `
+        <img src="${song.artwork['150x150']}" alt="${song.title}">
+        <h3>${song.title}</h3>
+        <p>${song.user.name}</p>
+      `;
+      track.appendChild(card);
+    });
+  } catch (error) {
+    console.error('Error fetching trending songs:', error);
+  }
+}
+
+function moveCarousel(direction) {
+  const cards = document.querySelectorAll('.carousel-card');
+  const cardWidth = cards[0].offsetWidth + 20;
+  const trackWidth = track.offsetWidth;
+  const visibleCards = Math.floor(trackWidth / cardWidth);
+
+  if (direction === 'next') {
+    if (currentIndex < cards.length - visibleCards) {
+      currentIndex++;
+    }
+  } else if (direction === 'prev') {
+    if (currentIndex > 0) {
+      currentIndex--;
+    }
+  }
+
+  track.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
+}
+
+prevButton.addEventListener('click', () => moveCarousel('prev'));
+nextButton.addEventListener('click', () => moveCarousel('next'));
+
+fetchTrendingSongs();

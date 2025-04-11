@@ -66,24 +66,36 @@
                 <div class="overlay"></div>
             </div>
             <section id="search-section" class="content-wrapper flex flex-col">
-                    <h2> Search results:</h2>
-                    <div id="search-results" class="search-results-container">
-                        <div id="songs-list">
-                            <div class="song-card">
-                                <img src="COVER_URL" alt="song cover">
-                                <div class="info">
-                                    <h3>SONG_TITLE</h3>
-                                    <p>ARTIST_NAME</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="artists-list">
-                            <div class="artist-card">
-                                <img src="ARTIST_PICTURE" alt="Artist Picture">
+                <div id="search-results" class="search-results-container">
+                    <div id="songs-list">
+                        <div class="song-card">
+                            <img src="COVER_URL" alt="song cover">
+                            <div class="info">
+                                <h3>SONG_TITLE</h3>
                                 <p>ARTIST_NAME</p>
                             </div>
                         </div>
                     </div>
+                    <div id="artists-list">
+                        <div class="artist-card">
+                            <img src="ARTIST_PICTURE" alt="Artist Picture">
+                            <p>ARTIST_NAME</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="default-view" class="default-section">
+                <h2>Trending Now</h2>
+                <div class="carousel-container">
+                    <div class="carousel-track-container">
+                        <ul class="carousel-track"></ul>
+                    </div>
+                    <div class="carousel-navigation">
+                        <button class="carousel-button prev">&#10094;</button>
+                        <div class="carousel-dots"></div>              
+                        <button class="carousel-button next">&#10095;</button>
+                    </div>
+                </div>
             </section>
             <div id="lyrics-container"></div>
         </div>

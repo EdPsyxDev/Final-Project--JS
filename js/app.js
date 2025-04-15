@@ -81,6 +81,8 @@ if (bentoMenu && closeBtn && showMenu) {
   });
 }
 
+// ========
+
 const inputMain = document.getElementById('main-input');
 const suggestionsBoxMain = document.getElementById('suggestions');
 
@@ -148,3 +150,5 @@ document.addEventListener('click', (e) => {
     suggestionsBoxMain.classList.remove('shows');
   }
 })
+
+// ========

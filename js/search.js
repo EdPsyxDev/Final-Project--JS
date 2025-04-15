@@ -1,35 +1,4 @@
-// const bentoMenu = document.querySelector('.bento-menu');
-// const closeBtn = document.querySelector('.close-btn');
-// const showMenu = document.querySelector('.showMenu');
 
-// if (bentoMenu && closeBtn && showMenu) {
-//   let isMenuOpen = false;
-
-//   bentoMenu.addEventListener('click', () => {
-//     if (isMenuOpen) return;
-
-//     bentoMenu.classList.remove('show-anim-in');
-//     bentoMenu.classList.add('hide-anim-out');
-
-//     setTimeout(() => {
-//       closeBtn.classList.add('show');
-//       showMenu.classList.add('active');
-//       isMenuOpen = true;
-//     }, 100);
-//   });
-
-//   closeBtn.addEventListener('click', () => {
-//     closeBtn.classList.remove('show');
-//     showMenu.classList.remove('active');
-
-//     setTimeout(() => {
-//       bentoMenu.style.display = 'flex';
-//       bentoMenu.classList.remove('hide-anim-out');
-//       bentoMenu.classList.add('show-anim-in');
-//       isMenuOpen = false;
-//     }, 700);
-//   });
-// }
 
 // /---/ //
 
@@ -69,6 +38,7 @@ window.addEventListener('DOMContentLoaded', fetchData);
 
 const searchInput = document.getElementById('search-input');
 const suggestionsBox = document.getElementById('suggestions');
+const searchButton = document.getElementById('search-button');
 
 searchInput.addEventListener('input', async () => {
   const query = searchInput.value.trim();
@@ -76,7 +46,7 @@ searchInput.addEventListener('input', async () => {
   if(!query) {
     suggestionsBox.innerHTML = '';
     suggestionsBox.style.display = 'none';
-    suggestionsBox.classList.add('shows');
+    suggestionsBox.classList.remove('shows');
     return;
   }
 
@@ -85,14 +55,12 @@ searchInput.addEventListener('input', async () => {
     if (!res.ok) throw new Error(`HTTP error ${res.status}`);
 
     const data = await res.json();
-    console.log('API response:', data);
-
     const results = data.data.slice(0, 15); // suggests limit
 
     if (results.length === 0) {
       suggestionsBox.innerHTML = '';
       suggestionsBox.style.display = 'none';
-      suggestionsBox.classList.add('shows');
+      suggestionsBox.classList.remove('shows');
       return;
     }
 
@@ -114,22 +82,44 @@ searchInput.addEventListener('input', async () => {
   }
   
   
-  suggestionsBox.addEventListener('click', (e) => {
-    const item = e.target.closest('.suggestion.item');
-    if (!item) return;
-    
-    const artist = item.dataset.artist;
-    const title = item.dataset.title;
-    
-    const encodedArtist = encodeURIComponent(artist);
-    const encodedTitle = encodeURIComponent(title);
-    
-    window.location.href = `/search.html?artist=${encodedArtist}&title=${encodedTitle}`;
-  });
 });
+
+searchInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    const query = searchInput.value.trim();
+    if (!query) return;
+
+    const encodedQuery = encodeURIComponent(query);
+    window.location.href = `/search.html?query=${encodedQuery}`;
+  }
+});
+
+suggestionsBox.addEventListener('click', (e) => {
+  const item = e.target.closest('.suggestion-item');
+  if (!item) return;
+  
+  const artist = item.dataset.artist;
+  const title = item.dataset.title;
+  
+  const encodedArtist = encodeURIComponent(artist);
+  const encodedTitle = encodeURIComponent(title);
+  
+  window.location.href = `/search.html?artist=${encodedArtist}&title=${encodedTitle}`;
+});
+
+searchButton.addEventListener('click', () => {
+  const query = searchInput.value.trim();
+  if (!query) return;
+
+  const encodedQuery = encodeURIComponent(query);
+  window.location.href = `/search.html?query=${encodedQuery}`;
+});
+
 
 document.addEventListener('click', (e) => {
   if (!suggestionsBox.contains(e.target) && e.target !== searchInput) {
+    suggestionsBox.style.display = 'none';
     suggestionsBox.classList.remove('shows');
   }
 });
@@ -145,9 +135,12 @@ const defaultView = document.getElementById('default-view');
 const resultsSection = document.getElementById('search-results');
 const lyricsSection = document.getElementById('lyrics-container');
 
+resultsSection.style.removeProperty('display');
+lyricsSection.style.display = 'none';
+defaultView.style.display = 'none';
+
 if (artist && title) {
   loadLyrics(decodeURIComponent(artist), decodeURIComponent(title));
-  resultsSection.style.display = 'none';
   defaultView.style.display = 'none';
 } else if (query) {
   loadResults(query);
@@ -171,6 +164,9 @@ async function loadResults(query) {
   songsContainer.innerHTML = '';
   artistsContainer.innerHTML = '';
 
+  const stateContainer = document.getElementById('search-state');
+  stateContainer.innerHTML = '';
+
   const spinner = document.createElement('div');
   spinner.className = 'loading-state';
   spinner.innerHTML = `
@@ -178,7 +174,7 @@ async function loadResults(query) {
       <i class="fas fa-spinner"></i>
       <p>Loading results</p>
     </div>`;
-  songsContainer.appendChild(spinner);
+    stateContainer.appendChild(spinner);
 
   try {
     const res = await fetch(`https://api.lyrics.ovh/suggest/${encodeURIComponent(query)}`);
@@ -221,26 +217,32 @@ async function loadResults(query) {
 
   } catch (err) {
     console.error('Error loading results:', err);
-    spinner.remove();
-    showEmptyState(query);
-  }
-}
+    stateContainer.innerHTML = `
+    <div class="empty-state">
+        <h1>No results found</h1>
+        <span>We couldn't find anything for"${query}. Try another search."</span>
+    </div>`;
+}}
 
 
 function showEmptyState(query) {
-  const songsContainer = document.getElementById('song-list');
-  songsContainer.innerHTML = '';
-  const empty = document.createElement('div');
-  empty.className = "empty-state";
-  empty.innerHTML = `
-    <h1>No results found</h1>
-    <span>We couldn't find anything for "${query}". Try another search.</span>`;
-    songsContainer.appendChild(empty);
+  const stateContainer = document.getElementById('search-state');
+  stateContainer.innerHTML = `
+    <div class="empty-state">
+      <h1>No results found</h1>
+      <span>We couldn't find anything for "${query}". Try another search.</span>
+    </div>`;
 }
+
 
 async function loadLyrics(artist, title) {
   const lyricsContainer = document.getElementById('lyrics-container');
+  const resultsSection = document.getElementById('search-results');
+  const defaultView = document.getElementById('default-view');
+
   lyricsContainer.innerHTML = '';
+
+  showLoadingBar();
 
   const spinner = document.createElement('div');
   spinner.className = 'loading-state';
@@ -251,94 +253,47 @@ async function loadLyrics(artist, title) {
     </div>`;
   lyricsContainer.appendChild(spinner);
 
+  lyricsContainer.style.display = 'block';
+  resultsSection.style.display = 'none';
+  defaultView.style.display = 'none';
+
   try {
     const res = await fetch(`https://api.lyrics.ovh/v1/${encodeURIComponent(artist)}/${encodeURIComponent(title)}`);
     if (!res.ok) throw new Error(`HTTP error ${res.status}`);
+    
     const data = await res.json();
-
     spinner.remove();
+    hideLoadingBar();
+
+    if (!data.lyrics || data.lyrics.trim() === '') {
+      const empty = document.createElement('p');
+      empty.className = 'empty-state';
+      empty.textContent = `No lyrics available for "${title}" by ${artist}`;
+      lyricsContainer.appendChild(empty);
+      return;
+    }
 
     const lyricsBlock = document.createElement('div');
     lyricsBlock.className = 'lyrics-block';
     lyricsBlock.innerHTML = `<h2>${title} - ${artist}</h2><pre>${data.lyrics}</pre>`;
     lyricsContainer.appendChild(lyricsBlock); 
+
   } catch (err) {
-    spinner.remove();
-    lyricsContainer.innerHTML = `<p class="empty-state">Couldn't load lyrics for "${title}"</p>`;
     console.error('Error loading lyrics:', err);
+    spinner.remove();
+    hideLoadingBar();
+
+    const errorMsg = document.createElement('p');
+    errorMsg.className = 'empty-state';
+    errorMsg.textContent = `Couldn't load lyrics for "${title}" by ${artist}. Please try another song.`;
+    lyricsContainer.appendChild(errorMsg);
   }
 }
+
 
 // /---/ //
 
-const searchInputField = document.getElementById('search-input');
-const searchButton = document.getElementById('search-button');
 
-function updateSearchResults() {
-  const newQuery = searchInputField.value.trim();
-  if (!newQuery) return;
-
-  const encoded = encodeURIComponent(newQuery);
-  const newURL = new URL(window.location.href);
-  history.pushState({}, '', newURL);
-  loadResults(encoded);
-}
-
-searchInputField.addEventListener('keydown', (e) => {
-  if (e.key === 'Enter') updateSearchResults();
-});
-
-searchButton.addEventListener('click', updateSearchResults);
 
 // /---/ //
 
-const track = document.querySelector('.carousel-track');
-const prevButton = document.querySelector('.carousel-button.prev');
-const nextButton = document.querySelector('.carousel-button.next');
-
-let currentIndex = 0;
-
-async function fetchTrendingSongs() {
-  try {
-    const response = await fetch ('https://api.audius.co/v1/tracks/trending?genre=metal&limit=10');
-    const data = await response.json();
-    const songs = data.data;
-
-    songs.forEach(song => {
-      const card = document.createElement('li');
-      card.classList.add('carousel-card');
-      card.innerHTML = `
-        <img src="${song.artwork['150x150']}" alt="${song.title}">
-        <h3>${song.title}</h3>
-        <p>${song.user.name}</p>
-      `;
-      track.appendChild(card);
-    });
-  } catch (error) {
-    console.error('Error fetching trending songs:', error);
-  }
-}
-
-function moveCarousel(direction) {
-  const cards = document.querySelectorAll('.carousel-card');
-  const cardWidth = cards[0].offsetWidth + 20;
-  const trackWidth = track.offsetWidth;
-  const visibleCards = Math.floor(trackWidth / cardWidth);
-
-  if (direction === 'next') {
-    if (currentIndex < cards.length - visibleCards) {
-      currentIndex++;
-    }
-  } else if (direction === 'prev') {
-    if (currentIndex > 0) {
-      currentIndex--;
-    }
-  }
-
-  track.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
-}
-
-prevButton.addEventListener('click', () => moveCarousel('prev'));
-nextButton.addEventListener('click', () => moveCarousel('next'));
-
-fetchTrendingSongs();

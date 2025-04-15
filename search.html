@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="md-theme-default">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,17 +10,19 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <script src="/js/search.js" defer></script>
 </head>
+
 <body>
-    <div id="app">    
+    <div id="app">
         <div class="flex flex-col" style="display: flex; flex: 1 1 0%;">
             <div class="navbar flex flex-col">
-                <div class="flex content-wrapper wrapper justify-between align-center" style="flex-direction: row; z-index: 1005;">
+                <div class="flex content-wrapper wrapper justify-between align-center"
+                    style="flex-direction: row; z-index: 1005;">
                     <div class="logo">
                         <img src="./Resourses/wave-square-solid.svg" alt="main-logo" class="logo">
                     </div>
                     <div class="links align-center justify-between">
                         <a href="/" class="link rle-active">Home</a>
-                        <a href="/search.html" class="link">Find your Lyrics</a>
+                        <a href="/search.html" class="link">Find Lyrics</a>
                         <a href="/" class="btn-contact">Contact</a>
                     </div>
                     <div id="phone-nav">
@@ -46,26 +49,28 @@
                     <h1 class="nav-header">Browse Lyrics</h1>
                     <div class="input-wrapper">
                         <input id="search-input" type="text" placeholder="Search by artist and song title">
-                        <div class="suggestions-box" id="suggestions">
-                        </div>
                         <div id="search-button" class="search-wrapper flex justify-center align-center">
                             <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" role="img"
-                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-search fa-w-16">
+                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
+                                class="svg-inline--fa fa-search fa-w-16">
                                 <path fill="currentColor"
                                     d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"
                                     class=""></path>
                             </svg>
                         </div>
+                        <div class="suggestions-box" id="suggestions">
+                        </div>
                     </div>
                 </div>
-                <div class="md-progress-bar md-indeterminate md-theme-default" style="position: absolute; bottom: -5px; left: 0px; right: 0px; ">
+                <div class="md-progress-bar md-indeterminate md-theme-default"
+                    style="position: absolute; bottom: -5px; left: 0px; right: 0px; ">
                     <div class="md-progress-bar-track"></div>
                     <div class="md-progress-bar-fill"></div>
                     <div class="md-progress-bar-buffer"></div>
                 </div>
                 <div class="overlay"></div>
             </div>
-            <section id="search-section" class="content-wrapper flex flex-col">
+            <section id="search-section">
                 <div id="search-results" class="search-results-container">
                     <div id="songs-list">
                         <div class="song-card">
@@ -82,24 +87,14 @@
                             <p>ARTIST_NAME</p>
                         </div>
                     </div>
+                    <div id="search-state" class="search-state"></div>
                 </div>
             </section>
             <section id="default-view" class="default-section">
-                <h2>Trending Now</h2>
-                <div class="carousel-container">
-                    <div class="carousel-track-container">
-                        <ul class="carousel-track"></ul>
-                    </div>
-                    <div class="carousel-navigation">
-                        <button class="carousel-button prev">&#10094;</button>
-                        <div class="carousel-dots"></div>              
-                        <button class="carousel-button next">&#10095;</button>
-                    </div>
-                </div>
             </section>
-            <div id="lyrics-container"></div>
+            <section id="lyrics-container" class="lyrics-container"></section>
         </div>
     </div>
 </body>
-</html>
 
+</html>

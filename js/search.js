@@ -1,3 +1,15 @@
+function preloadImages(urls) {
+  return Promise.all(urls.map(src => {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.src = src;
+      img.onload = resolve;
+      img.onerror = reject;
+    });
+  }));
+}
+
+
 
 const bentoMenu = document.querySelector('.bento-menu');
 const closeBtn = document.querySelector('.close-btn');
@@ -37,34 +49,17 @@ if (bentoMenu && closeBtn && showMenu) {
 const progressBar = document.querySelector('.md-progress-bar');
 
 function showLoadingBar() {
-    progressBar.classList.add('loading');
-    progressBar.style.opacity = '1';
-    progressBar.style.transform = 'translateZ(0) scaleY(1)';
+  progressBar.classList.add('loading');
+  progressBar.style.opacity = '1';
+  progressBar.style.transform = 'translateZ(0) scaleY(1)';
 }
 
 function hideLoadingBar() {
-    progressBar.style.opacity = '0';
-    progressBar.style.transform = 'translateZ(0) scaleY(0)';
-    
-    setTimeout(() => {
-        progressBar.classList.remove('loading');
-    }, 400);
+  progressBar.style.transition = 'opacity .7s ease, transform .8s ease';
+  progressBar.style.opacity = '0';
+  progressBar.style.transform = 'translateZ(0) scaleY(0)';
+  progressBar.classList.remove('loading');
 }
-
-async function fetchData() {
-    try {
-        showLoadingBar();
-
-        await new Promise(resolve => setTimeout(resolve, 2000));
-
-    } catch (err) {
-        console.error('...', err);
-    } finally {
-        hideLoadingBar();
-    }
-}
-
-window.addEventListener('DOMContentLoaded', fetchData);
 
 // /---/ //
 
@@ -179,7 +174,7 @@ if (artist && title) {
   lyricsSection.style.display = 'none';
   defaultView.style.display = 'none';
 } else {
-  defaultView.style.display = 'block';
+  defaultView.style.display = '';
   resultsSection.style.display = 'none';
   lyricsSection.style.display = 'none';
 }
@@ -187,16 +182,8 @@ if (artist && title) {
 async function loadResults(query) {
   const songsContainer = document.getElementById('songs-list');
   const artistsContainer = document.getElementById('artists-list');
-
-  if (!songsContainer || !artistsContainer) {
-    console.error('Missing result containers in the HTML');
-    return;
-  }
-
-  songsContainer.innerHTML = '';
-  artistsContainer.innerHTML = '';
-
   const stateContainer = document.getElementById('search-state');
+  
   stateContainer.innerHTML = '';
 
   const spinner = document.createElement('div');
@@ -206,20 +193,26 @@ async function loadResults(query) {
       <i class="fas fa-spinner"></i>
       <p>Loading results</p>
     </div>`;
-    stateContainer.appendChild(spinner);
+  stateContainer.appendChild(spinner);
 
   try {
     const res = await fetch(`https://api.lyrics.ovh/suggest/${encodeURIComponent(query)}`);
     if (!res.ok) throw new Error(`HTTP error ${res.status}`);
     const data = await res.json();
 
-    spinner.remove();
-
     const results = data.data;
     if (results.length === 0) {
       showEmptyState(query);
       return;
     }
+
+    const songImageUrls = results.map(song => song.album.cover_medium);
+    const artistImageUrls = [...new Map(results.map(song => [song.artist.name, song.artist.picture_medium])).values()];
+
+    await preloadImages([...songImageUrls, ...artistImageUrls]);
+
+    songsContainer.innerHTML = '';
+    artistsContainer.innerHTML = '';
 
     results.forEach(song => {
       const songItem = document.createElement('div');
@@ -236,7 +229,6 @@ async function loadResults(query) {
     });
 
     const uniqueArtists = [...new Map(results.map(song => [song.artist.name, song.artist])).values()];
-
     uniqueArtists.forEach(artist => {
       const artistItem = document.createElement('div');
       artistItem.className = 'artist-card';
@@ -246,6 +238,13 @@ async function loadResults(query) {
       `;
       artistsContainer.appendChild(artistItem);
     });
+    
+  
+    songsContainer.style.display = '';
+    artistsContainer.style.display = '';
+    stateContainer.innerHTML = '';
+    hideLoadingBar();
+
 
   } catch (err) {
     console.error('Error loading results:', err);
@@ -253,7 +252,7 @@ async function loadResults(query) {
     <div class="empty-state">
         <h1>No results found</h1>
         <span>We couldn't find anything for"${query}. Try another search."</span>
-    </div>`;
+    </div>`;   
 }}
 
 
@@ -285,7 +284,7 @@ async function loadLyrics(artist, title) {
     </div>`;
   lyricsContainer.appendChild(spinner);
 
-  lyricsContainer.style.display = 'block';
+  lyricsContainer.style.display = '';
   resultsSection.style.display = 'none';
   defaultView.style.display = 'none';
 

@@ -11,6 +11,7 @@
     <script src="js/search.js" defer></script>
 </head>
 
+  
 <body>
     <div id="app">
         <div class="flex flex-col" style="display: flex; flex: 1 1 0%;">
@@ -72,27 +73,14 @@
             </div>
             <section id="search-section">
                 <div id="search-results" class="search-results-container">
-                    <div id="songs-list">
-                        <div class="song-card">
-                            <img src="COVER_URL" alt="song cover">
-                            <div class="info">
-                                <h3>SONG_TITLE</h3>
-                                <p>ARTIST_NAME</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="artists-list">
-                        <div class="artist-card">
-                            <img src="ARTIST_PICTURE" alt="Artist Picture">
-                            <p>ARTIST_NAME</p>
-                        </div>
-                    </div>
-                    <div id="search-state" class="search-state"></div>
+                    <div id="songs-list"></div>
+                    <div id="artists-list"></div>
                 </div>
+                <div id="default-view" class="default-section">
+                </div>
+                <div id="lyrics-container" class="lyrics-container"></div>
             </section>
-            <section id="default-view" class="default-section">
-            </section>
-            <section id="lyrics-container" class="lyrics-container"></section>
+            <div id="search-state" class="search-state"></div>
         </div>
     </div>
 </body>

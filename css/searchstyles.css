@@ -306,20 +306,20 @@ SEARCH
 
 .md-progress-bar.md-indeterminate .md-progress-bar-track {
     left: -150%;
-    animation: trackSlide 2s linear infinite;
+    animation: trackSlide 1s linear infinite;
 }
 
 .md-progress-bar.md-indeterminate .md-progress-bar-track:after {
-    animation: trackScale 2s linear infinite;
+    animation: trackScale 1s linear infinite;
 }
 
 .md-progress-bar.md-indeterminate .md-progress-bar-fill {
     left: -55%;
-    animation: fillSlide 2s linear infinite;
+    animation: fillSlide 1s linear infinite;
 }
 
 .md-progress-bar.md-indeterminate .md-progress-bar-fill:after {
-    animation: fillScale 2s linear infinite;
+    animation: fillScale 1s linear infinite;
 }
 
 @keyframes trackSlide {
@@ -355,19 +355,16 @@ SEARCH
 
 
 #songs-list {
-    flex: 2;
     display: flex;
     flex-direction: column;
-    min-width: 0;
-    max-width: 600px;
+    width: 600px;
 }
 
 
 #artists-list {
-    flex: 1;
-    max-width: 240px;
     display: flex;
     flex-direction: column;
+    width: 240px;
 }
 
 
@@ -462,17 +459,14 @@ SEARCH
 
 #search-section {
     padding: 40px 40px;
-    animation: fadeUp .8s ease-out forwards;
-    animation-delay: .8s;
-    display: block;
 }
 
 #search-results {
     display: flex;
-    gap: 2rem;
-    align-items: flex-start;
+    flex-direction: row;
     justify-content: space-between;
-    flex-wrap: wrap;
+    margin: 10px;
+    animation: fadeUp .9s ease-out forwards;
 }
 
 
@@ -484,18 +478,23 @@ SEARCH
 
 #lyrics-container {
     min-height: 200px;
-    padding: 1rem;
-    display: block;
+    padding: 2rem;
+    display: flex;
+    justify-content: center; 
+}
+.lyrics-container h2 {
+    margin: 0 0 60px;
 }
 
 
 .loading-state {
     display: flex;
     justify-content: center;
+    position: absolute;
     align-items: center;
     flex-direction: column;
     width: 100%;
-    min-height: 250px;
+    height: 40%;
     text-align: center;
 }
 
@@ -518,6 +517,7 @@ SEARCH
 
 .loading-artists p {
     font-size: 16px;
+    margin-top: 10px;
     color: #444;
     font-weight: 500;
 }
@@ -532,7 +532,6 @@ SEARCH
     display: flex;
     flex-direction: column;
     align-items: center;
-    animation: fadeUp .5s ease-out;
 }
 
 .empty-state h1 {

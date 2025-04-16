@@ -91,7 +91,7 @@ searchInput.addEventListener('keydown', (e) => {
     if (!query) return;
 
     const encodedQuery = encodeURIComponent(query);
-    window.location.href = `/search.html?query=${encodedQuery}`;
+    window.location.href = `search.html?query=${encodedQuery}`;
   }
 });
 
@@ -105,7 +105,7 @@ suggestionsBox.addEventListener('click', (e) => {
   const encodedArtist = encodeURIComponent(artist);
   const encodedTitle = encodeURIComponent(title);
   
-  window.location.href = `/search.html?artist=${encodedArtist}&title=${encodedTitle}`;
+  window.location.href = `search.html?artist=${encodedArtist}&title=${encodedTitle}`;
 });
 
 searchButton.addEventListener('click', () => {
@@ -113,7 +113,7 @@ searchButton.addEventListener('click', () => {
   if (!query) return;
 
   const encodedQuery = encodeURIComponent(query);
-  window.location.href = `/search.html?query=${encodedQuery}`;
+  window.location.href = `search.html?query=${encodedQuery}`;
 });
 
 

@@ -139,7 +139,7 @@ inputMain.addEventListener('input', async () => {
     const encodedArtist = encodeURIComponent(artist);
     const encodedTitle = encodeURIComponent(title);
 
-    window.location.href = `/search.html?artist=${encodedArtist}&title=${encodedTitle}`;
+    window.location.href = `search.html?artist=${encodedArtist}&title=${encodedTitle}`;
   });
 });
 

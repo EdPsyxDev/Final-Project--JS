@@ -92,7 +92,7 @@ input:focus, select:focus{
 }
 
 .overlay {
-    background-image: url(Resourses/livemusic.jpg);
+    background-image: url(/Resourses/livemusic.jpg);
     background-repeat: no-repeat;
     background-position: 50%;
     background-size: cover;

@@ -177,6 +177,7 @@ if (artist && title) {
   defaultView.style.display = '';
   resultsSection.style.display = 'none';
   lyricsSection.style.display = 'none';
+  loadDefaultView();
 }
 
 async function loadResults(query) {
@@ -323,6 +324,9 @@ async function loadLyrics(artist, title) {
 
 
 // /---/ //
+
+
+
 
 
 

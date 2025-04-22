@@ -55,7 +55,7 @@ function showLoadingBar() {
 }
 
 function hideLoadingBar() {
-  progressBar.style.transition = 'opacity .7s ease, transform .8s ease';
+  progressBar.style.transition = 'opacity .5s ease, transform 1s ease';
   progressBar.style.opacity = '0';
   progressBar.style.transform = 'translateZ(0) scaleY(0)';
   progressBar.classList.remove('loading');
@@ -177,7 +177,7 @@ if (artist && title) {
   defaultView.style.display = '';
   resultsSection.style.display = 'none';
   lyricsSection.style.display = 'none';
-  loadDefaultView();
+  hideLoadingBar();
 }
 
 async function loadResults(query) {
@@ -327,8 +327,4 @@ async function loadLyrics(artist, title) {
 
 
 
-
-
-
 // /---/ //
-

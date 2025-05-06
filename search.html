@@ -8,9 +8,9 @@
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/searchstyles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <script src="js/search.js" defer></script>
 </head>
-
   
 <body>
     <div id="app">
@@ -71,30 +71,50 @@
                 </div>
                 <div class="overlay"></div>
             </div>
+            <div id="search-state" class="search-state"></div>
             <section id="search-section">
                 <div id="search-results" class="search-results-container">
-                    <div id="songs-list"></div>
-                    <div id="artists-list"></div>
+                    <div class="results-wrapper">
+                        <div class="results-container lists">
+                            <div id="songs-list"></div>
+                            <div id="artists-list"></div>
+                        </div>
+                        <h2 id="results-header" class="results-header"></h2>
+                        <div class="results-container buttons">
+                            <div id="songs-buttons"></div>
+                            <div id="artists-buttons"></div>
+                        </div>
+                    </div>
                 </div>
                 <div id="default-view" class="default-section">
                     <div class="default-hero">
                         <div class="hero-overlay">
-                            <div class="overlay-left">
-                                <h1 class="hero-title">Feel the music. Explore. Discover.</h1>
-                                <p class="hero-subtitle">Search for lyrics, discover songs, and explore artists. All in one place.</p>
-                            </div>
-                            <div class="overlay-right">
-                                <div class="default-heading">Discover New Songs</div>
-                                <div id="default-content" class="default-list"></div>
-                            </div>
+                            <h1 class="hero-title">Feel the music. Explore. Discover.</h1>
+                            <p class="hero-subtitle">Search for lyrics, discover songs, and explore artists. All in one place.</p>
                         </div>
                     </div>
                 </div>
                 <div id="lyrics-container" class="lyrics-container"></div>
+                <div class="default-random">
+                    <div id="recommendations" class="random-columns hidden">
+                        <h2 class="default-title">Explore New Artists and Songs</h2>
+                        <div class="random-content">
+                            <div class="random-list">
+                                <h2 class="random-titles">Songs</h2>
+                                <div id="discover-songs" class="random-cards"></div>
+                            </div>
+                            <div class="random-list">
+                                <h2 class="random-titles">Artists</h2>
+                                <div id="discover-artists" class="random-cards"></div>
+                            </div>
+                        </div>    
+                    </div>
+                </div>
             </section>
-            <div id="search-state" class="search-state"></div>
+            <footer class="footer"></footer>
         </div>
     </div>
 </body>
 
 </html>
+

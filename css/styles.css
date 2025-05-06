@@ -388,14 +388,6 @@ input:focus {
 
 
 
-button {
-    width: 200px;
-    margin-left: 20px;
-    font-size: 40px;
-    color: #fff;
-    border-radius: 20px;
-    transition: all .25s ease;
-}
 button svg.fa-search,
 button svg.fa-spinner {
     display: none;
@@ -406,6 +398,12 @@ button.not-loading {
     background-color: #c7000c;
     box-shadow: 7px 7px 14px rgba(134,93,204,.3);
     cursor: pointer;
+    width: 200px;
+    margin-left: 20px;
+    font-size: 40px;
+    color: #fff;
+    border-radius: 20px;
+    transition: all .25s ease;
 }
 button.not-loading:active {
     transform: scale(.95)

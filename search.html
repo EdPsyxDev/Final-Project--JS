@@ -74,16 +74,18 @@
             <div id="search-state" class="search-state"></div>
             <section id="search-section">
                 <div id="search-results" class="search-results-container">
-                    <div class="results-wrapper">
+                    <div id="results-wrapper" class="results-wrapper hidden">
                         <div class="results-container lists">
-                            <div id="songs-list"></div>
-                            <div id="artists-list"></div>
+                            <div class="songs-column">
+                                <div id="songs-list"></div>
+                                <div id="songs-buttons" class="pagination-buttons"></div>
+                            </div>
+                            <div class="artists-column">
+                                <div id="artists-list"></div>
+                                <div id="artists-buttons" class="pagination-buttons"></div>
+                            </div>
                         </div>
                         <h2 id="results-header" class="results-header"></h2>
-                        <div class="results-container buttons">
-                            <div id="songs-buttons"></div>
-                            <div id="artists-buttons"></div>
-                        </div>
                     </div>
                 </div>
                 <div id="default-view" class="default-section">

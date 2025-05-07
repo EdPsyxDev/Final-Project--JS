@@ -213,6 +213,7 @@ async function loadResults(query) {
     const results = data.data;
     if (results.length === 0) {
       showEmptyState(query);
+      document.querySelector('.results-wrapper').classList.add('hidden');
       return;
     }
     
@@ -235,7 +236,9 @@ async function loadResults(query) {
     artistsContainer.style.display = '';
     stateContainer.innerHTML = '';
     hideLoadingBar();
-    
+    document.querySelector('.results-wrapper').classList.remove('hidden');
+
+
   } catch (err) {
     console.error('Error loading results:', err);
     stateContainer.innerHTML = `
@@ -493,7 +496,9 @@ async function loadDefaultRandom() {
 
   progressBar.style.opacity = '0';
   progressBar.style.transform = 'translateZ(0) scaleY(0)';
-  document.getElementById('recommendations').classList.remove('hidden');
+  const rec = document.getElementById('recommendations');
+  rec.classList.remove('hidden');
+  setTimeout(() => rec.classList.add('visible'), 50);
 }
 
 window.addEventListener('DOMContentLoaded', () => {

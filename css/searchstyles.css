@@ -366,33 +366,49 @@ SEARCH
     text-align: left;
 }
 
-.results-container {
+.results-container.lists {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    align-items: flex-start;
+    justify-content: space-around;
+    gap: 3rem;
+    flex-wrap: wrap;
 }
 
-.results-wrapper {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
+.songs-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+}
+.artists-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+}
+
+.results-wrapper.hidden {
+    display: none;
 }
 
 #songs-list {
-    display: flex;
-    flex-direction: column;
-    width: 500px;
-    min-height: 520px;
+    height: 500px;
+    width: 450px;
 }
-
-
 #artists-list {
-    display: flex;
-    flex-direction: column;
-    width: 240px;
-    min-height: 520px;
+    height: 500px;
+    width: 300px;
 }
 
+.pagination-buttons {
+    margin-top: 1rem;
+    display: flex;
+    gap: .5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
 
 #songs-list::before {
     content: "Songs";
@@ -400,13 +416,15 @@ SEARCH
     font-size: 20px;
     margin: 10px 10px 40px 10px;
     display: flex;
-    justify-content: start;
+    justify-content: center;
 }
 #artists-list::before {
     content: "Artists";
     font-weight: bold;
     font-size: 20px;
     margin: 10px 10px 40px 10px;
+    display: flex;
+    justify-content: center;
 }
 
 .song-card {
@@ -572,7 +590,7 @@ SEARCH
     font-family: 'DM Sans', sans-serif;
     font-weight: 700;
     background-color: #f8f8f8;
-    color: #601010;
+    color: #222;
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 0, 0, .05);
     text-align: left;
@@ -597,7 +615,7 @@ SEARCH
 }
 .lyrics-text p {
     margin: 0;
-    line-height: 1.5;
+    line-height: 1.8;
 }
 
 .lyrics-paragraph {
@@ -607,7 +625,7 @@ SEARCH
 .loading-state {
     display: flex;
     justify-content: center;
-    position: absolute;
+    position: relative;
     align-items: center;
     flex-direction: column;
     width: 100%;
@@ -723,6 +741,16 @@ SEARCH
 
 
 /* ----------------- */
+
+#recommendations {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity .6s ease, transform .6s ease;
+}
+#recommendations.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
 
 .random-titles {
     font-size: 20px;

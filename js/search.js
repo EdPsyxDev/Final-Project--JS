@@ -16,6 +16,9 @@ let currentResults = [];
 let currentArtists = [];
 let currentArtistsPage = 1;
 
+let currentArtistSongs = [];
+let currentArtistSongsPage = 1;
+
 
 const bentoMenu = document.querySelector('.bento-menu');
 const closeBtn = document.querySelector('.close-btn');
@@ -88,7 +91,7 @@ searchInput.addEventListener('input', async () => {
     if (!res.ok) throw new Error(`HTTP error ${res.status}`);
 
     const data = await res.json();
-    const results = data.data.slice(0, 15); // suggests limit
+    const results = data.data.slice(0, 15); // suggests limit (API limit)
 
     if (results.length === 0) {
       suggestionsBox.innerHTML = '';
@@ -288,23 +291,49 @@ function renderArtistsPage(page) {
       <img src="${artist.picture_medium}" alt="${artist.name}">
       <p>${artist.name}</p>
     `;
+    artistItem.onclick = () => {
+      loadArtistProfile(artist.name);
+      document.getElementById('artist-profile').classList.remove('hidden');
+    };
+
     artistsContainer.appendChild(artistItem);
   });
 
   renderArtistsPagination(page);
 }
 
+function renderArtistSongsPage(page) {
+  const songsContainer = document.getElementById('artist-songs-list');
+  songsContainer.innerHTML = '';
+
+  const start = (page - 1) * resultsPerPage;
+  const end = start + resultsPerPage;
+  const songsToRender = currentArtistSongs.slice(start, end);
+
+  songsToRender.forEach(song => {
+    const songItem = document.createElement('div');
+    songItem.className = 'song-card';
+    songItem.innerHTML = `
+      <img src="${song.album.cover_medium}" alt="${song.title}">
+      <div class="text">
+        <h3>${song.title}</h3>
+        <p>${song.artist.name}</p>
+      </div>
+    `;
+    songItem.onclick = () => loadLyrics(song.artist.name, song.title);
+    songsContainer.appendChild(songItem);
+  });
+
+  renderArtistSongsPagination(page);
+}
+
+
 function renderArtistsPagination(activePage) {
-  let paginationContainer = document.getElementById('artist-pagination-container');
+  const artistsButtonsWrapper = document.getElementById('artists-buttons');
+  artistsButtonsWrapper.innerHTML = '';
 
-  if (!paginationContainer) {
-    paginationContainer = document.createElement('div');
-    paginationContainer.id = 'artist-pagination-container';
-    paginationContainer.className = 'pagination-container';
-    document.getElementById('artists-buttons').appendChild(paginationContainer);
-  }
-
-  paginationContainer.innerHTML = '';
+  const paginationContainer = document.createElement('div');
+  paginationContainer.className = 'pagination-container';
 
   const totalPages = Math.ceil(currentArtists.length / resultsPerPage);
 
@@ -324,6 +353,8 @@ function renderArtistsPagination(activePage) {
 
     paginationContainer.appendChild(btn);
   }
+
+  artistsButtonsWrapper.appendChild(paginationContainer);
 }
 
 function renderPagination(activePage) {
@@ -358,12 +389,52 @@ function renderPagination(activePage) {
   }
 }
 
+function renderArtistSongsPagination(activePage) {
+  let paginationContainer = document.getElementById('artist-pagination-container');
+
+  if (!paginationContainer) {
+    paginationContainer = document.createElement('div');
+    paginationContainer.id = 'artist-pagination-container';
+    paginationContainer.className = 'pagination-container';
+    document.getElementById('artist-songs').appendChild(paginationContainer);
+  }
+
+  paginationContainer.innerHTML = '';
+
+  const totalPages = Math.ceil(currentArtistSongs.length / resultsPerPage);
+
+  for (let i = 1; i <= totalPages; i++) {
+    const btn = document.createElement('button');
+    btn.className = 'pagination-btn';
+    btn.textContent = i;
+
+    if (i === activePage) {
+      btn.classList.add('active');
+    }
+
+    btn.addEventListener('click', () => {
+      currentArtistSongsPage = i;
+      renderArtistSongsPage(i);
+    });
+
+    paginationContainer.appendChild(btn);
+  }
+}
+
+
 async function loadLyrics(artist, title) {
   const lyricsContainer = document.getElementById('lyrics-container');
   const resultsSection = document.getElementById('search-results');
   const defaultView = document.getElementById('default-view');
 
+  const prevHeight = lyricsContainer.offsetHeight;
+  lyricsContainer.style.minHeight = `${prevHeight}px`;
+  lyricsContainer.style.transition = 'min height 1s ease';
+
   lyricsContainer.innerHTML = '';
+  lyricsContainer.style.display = 'block';
+  resultsSection.style.display = 'none';
+  defaultView.style.display = 'none';
 
   showLoadingBar();
 
@@ -376,23 +447,26 @@ async function loadLyrics(artist, title) {
     </div>`;
   lyricsContainer.appendChild(spinner);
 
-  lyricsContainer.style.display = '';
-  resultsSection.style.display = 'none';
-  defaultView.style.display = 'none';
-
   try {
     const res = await fetch(`https://api.lyrics.ovh/v1/${encodeURIComponent(artist)}/${encodeURIComponent(title)}`);
     if (!res.ok) throw new Error(`HTTP error ${res.status}`);
     
     const data = await res.json();
     spinner.remove();
+
     hideLoadingBar();
 
+    lyricsContainer.innerHTML = '';
+
     if (!data.lyrics || data.lyrics.trim() === '') {
-      const empty = document.createElement('p');
-      empty.className = 'empty-state';
-      empty.textContent = `No lyrics available for "${title}" by ${artist}`;
-      lyricsContainer.appendChild(empty);
+      lyricsContainer.innerHTML = 
+      `<p class="empty-state">No lyrics available for "${title}" by ${artist}</p>`;
+
+      smoothScrollToElement('lyrics-container', -50);
+      setTimeout(() => {
+        lyricsContainer.style.minHeight = '0';
+      }, 300);
+
       return;
     }
 
@@ -400,7 +474,6 @@ async function loadLyrics(artist, title) {
     lyricsBlock.className = 'lyrics-block';
 
     const paragraphs = data.lyrics.split(/\n{3,}/);
-
     const formattedParagraphs = paragraphs.map(paragraph => {
       const lines = paragraph
         .split('\n')
@@ -410,18 +483,22 @@ async function loadLyrics(artist, title) {
     }).join('');
     lyricsBlock.innerHTML = `<h2>${title} - ${artist}
     </h2><div class="lyrics-text">${formattedParagraphs}</div>`;
-    
-    lyricsContainer.appendChild(lyricsBlock); 
 
+    lyricsContainer.appendChild(lyricsBlock);
+    
+    smoothScrollToElement('lyrics-container', -50);
+    setTimeout(() => {
+      lyricsContainer.style.minHeight = '0';
+    }, 300);
   } catch (err) {
     console.error('Error loading lyrics:', err);
     spinner.remove();
     hideLoadingBar();
-
-    const errorMsg = document.createElement('p');
-    errorMsg.className = 'empty-state';
-    errorMsg.textContent = `Couldn't load lyrics for "${title}" by ${artist}. Please try another song.`;
-    lyricsContainer.appendChild(errorMsg);
+    lyricsContainer.innerHTML = `<p class="empty-state">Couldn't load lyrics for "${title}" by ${artist}. Please try another song.</p>`;
+    smoothScrollToElement('lyrics-container', -50);
+    setTimeout(() => {
+      lyricsContainer.style.minHeight = '0';
+    }, 300);
   }
 }
 
@@ -490,9 +567,15 @@ async function loadDefaultRandom() {
           <h4>${artist.artist.name}</h4>
       </div>
     `;
+    artistCard.onclick = () => {
+      loadArtistProfile(artist.artist.name);
+      document.getElementById('artist-profile').classList.remove('hidden');
+    };
 
     artistsContainer.appendChild(artistCard);
   });
+
+  document.getElementById('artist-profile').classList.add('hidden');
 
   progressBar.style.opacity = '0';
   progressBar.style.transform = 'translateZ(0) scaleY(0)';
@@ -505,4 +588,68 @@ window.addEventListener('DOMContentLoaded', () => {
   loadDefaultRandom();
 });
 
+window.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => {
+    const defaultView = document.getElementById('default-view');
+    defaultView.style.opacity = '1';
+    defaultView.style.transform = 'translateY(0)';
+    defaultView.style.transition = 'opacity .8s ease, transform .8s ease';
+    defaultView.style.pointerEvents = 'auto';
+  }, 1000);
+});
 // /---/ //
+
+async function loadArtistProfile(artistName) {
+  document.getElementById('default-view').style.display = 'none';
+  document.getElementById('search-results').style.display = 'none';
+  document.getElementById('lyrics-container').style.display = 'none';
+
+  const profile = document.getElementById('artist-profile');
+  profile.classList.remove('hidden');
+
+  try {
+    const res = await fetch(`https://api.lyrics.ovh/suggest/${encodeURIComponent(artistName)}`);
+    const data = await res.json();
+    if (!data || !Array.isArray(data.data) || data.data.length === 0) return;
+
+    const songs = data.data;
+    const artist = {
+      name: artistName,
+      picture_big: songs.find(song =>
+        song.artist.name.toLowerCase() === artistName.toLowerCase())?.artist.picture_big || '',
+    };
+
+    const imageContainer = document.getElementById('artist-image-container');
+    imageContainer.innerHTML = '';
+
+    const img = document.createElement('img');
+    img.src = artist.picture_big;
+    img.alt = artist.name;
+    img.className = 'artist-image';
+    imageContainer.appendChild(img);
+
+    document.getElementById('artist-name').textContent = artist.name;
+
+    currentArtistSongs = songs.slice(0, 15);
+    renderArtistSongsPage(1);
+
+    smoothScrollToElement('artist-profile');
+
+  } catch (err) {
+    console.error('Error loading artist profile', err);
+  }
+}
+
+// /---/ //
+
+function smoothScrollToElement(elementId, offset = 0) {
+  const element = document.getElementById(elementId);
+  if (!element) return;
+
+  const top = element.getBoundingClientRect().top + window.pageYOffset + offset;
+
+  window.scrollTo({
+    top, 
+    behavior: 'smooth'
+  });
+}
